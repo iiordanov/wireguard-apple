@@ -16,7 +16,19 @@ let package = Package(
     targets: [
         .target(
             name: "WireGuardKit",
-            dependencies: ["WireGuardKitGo", "WireGuardKitC"]
+            dependencies: [ "SharedModel", "WireGuardAppTunnel", "WireGuardKitC", "WireGuardKitGo", "WireGuardNetworkExtension" ]
+        ),
+        .target(
+            name: "SharedModel",
+            dependencies: [],
+            path: "Sources/Shared/Model",
+            publicHeadersPath: "."
+        ),
+        .target(
+            name: "WireGuardAppTunnel",
+            dependencies: [],
+            path: "Sources/WireGuardApp/Tunnel",
+            publicHeadersPath: "."
         ),
         .target(
             name: "WireGuardKitC",
@@ -35,6 +47,11 @@ let package = Package(
             ],
             publicHeadersPath: ".",
             linkerSettings: [.linkedLibrary("wg-go")]
+        ),
+        .target(
+            name: "WireGuardNetworkExtension",
+            dependencies: [],
+            publicHeadersPath: "."
         )
     ]
 )
