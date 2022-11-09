@@ -20,9 +20,14 @@ let package = Package(
             dependencies: ["WireGuardKitC", "WireGuardKitGo"]
         ),
         .target(
-            name: "SharedModel",
+            name: "Shared",
             dependencies: ["WireGuardKit"],
-            path: "Sources/Shared/Model",
+            exclude: [
+                "Logging/ringlogger.h",
+                "Logging/ringlogger.c",
+                "Logging/test_ringlogger.c"
+            ],
+            path: "Sources/Shared",
             publicHeadersPath: "."
         ),
         .target(
@@ -33,7 +38,7 @@ let package = Package(
         ),
         .target(
             name: "WireGuardAppTunnel",
-            dependencies: ["WireGuardAppShared", "WireGuardKit", "SharedModel"],
+            dependencies: ["WireGuardAppShared", "WireGuardKit", "Shared"],
             path: "Sources/WireGuardApp/Tunnel",
             publicHeadersPath: "."
         ),
