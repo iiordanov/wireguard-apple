@@ -20,7 +20,7 @@ let package = Package(
         ),
         .target(
             name: "SharedModel",
-            dependencies: [],
+            dependencies: ["WireGuardKit"],
             path: "Sources/Shared/Model",
             publicHeadersPath: "."
         ),
