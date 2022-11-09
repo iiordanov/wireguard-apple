@@ -22,7 +22,7 @@ let package = Package(
         .target(
             name: "SharedModels",
             dependencies: [],
-            path: "Sources/Shared/Models",
+            path: "Sources/Shared/Model",
             publicHeadersPath: "."
         ),
         .target(
