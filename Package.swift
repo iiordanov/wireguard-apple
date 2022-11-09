@@ -17,11 +17,11 @@ let package = Package(
     targets: [
         .target(
             name: "WireGuardKit",
-            dependencies: [ "WireGuardAppShared", "WireGuardKitC", "WireGuardKitGo" ]
+            dependencies: ["WireGuardKitC", "WireGuardKitGo"]
         ),
         .target(
             name: "SharedModels",
-            dependencies: [],
+            dependencies: ["WireGuardKit"],
             path: "Sources/Shared/Model",
             publicHeadersPath: "."
         ),
