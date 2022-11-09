@@ -20,7 +20,7 @@ let package = Package(
             dependencies: ["WireGuardKitC", "WireGuardKitGo"]
         ),
         .target(
-            name: "SharedModels",
+            name: "SharedModel",
             dependencies: ["WireGuardKit"],
             path: "Sources/Shared/Model",
             publicHeadersPath: "."
@@ -33,7 +33,7 @@ let package = Package(
         ),
         .target(
             name: "WireGuardAppTunnel",
-            dependencies: ["WireGuardAppShared", "WireGuardKit", "SharedModels"],
+            dependencies: ["WireGuardAppShared", "WireGuardKit", "SharedModel"],
             path: "Sources/WireGuardApp/Tunnel",
             publicHeadersPath: "."
         ),
