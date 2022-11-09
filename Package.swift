@@ -11,7 +11,7 @@ let package = Package(
         .iOS(.v12)
     ],
     products: [
-        .library(name: "WireGuardKit", targets: ["WireGuardKit", "Shared", "WireGuardAppTunnel"])
+        .library(name: "WireGuardKit", targets: ["WireGuardKit"])
     ],
     dependencies: [],
     targets: [
@@ -19,29 +19,29 @@ let package = Package(
             name: "WireGuardKit",
             dependencies: ["WireGuardKitC", "WireGuardKitGo"]
         ),
-        .target(
-            name: "Shared",
-            dependencies: ["WireGuardKit"],
-            path: "Sources/Shared",
-            exclude: [
-                "Logging/ringlogger.h",
-                "Logging/ringlogger.c",
-                "Logging/test_ringlogger.c"
-            ],
-            publicHeadersPath: "."
-        ),
-        .target(
-            name: "WireGuardAppShared",
-            dependencies: [],
-            path: "Sources/WireGuardApp/Shared",
-            publicHeadersPath: "."
-        ),
-        .target(
-            name: "WireGuardAppTunnel",
-            dependencies: ["WireGuardAppShared", "WireGuardKit", "Shared"],
-            path: "Sources/WireGuardApp/Tunnel",
-            publicHeadersPath: "."
-        ),
+//        .target(
+//            name: "Shared",
+//            dependencies: ["WireGuardKit"],
+//            path: "Sources/Shared",
+//            exclude: [
+//                "Logging/ringlogger.h",
+//                "Logging/ringlogger.c",
+//                "Logging/test_ringlogger.c"
+//            ],
+//            publicHeadersPath: "."
+//        ),
+//        .target(
+//            name: "WireGuardAppShared",
+//            dependencies: [],
+//            path: "Sources/WireGuardApp/Shared",
+//            publicHeadersPath: "."
+//        ),
+//        .target(
+//            name: "WireGuardAppTunnel",
+//            dependencies: ["WireGuardAppShared", "WireGuardKit", "Shared"],
+//            path: "Sources/WireGuardApp/Tunnel",
+//            publicHeadersPath: "."
+//        ),
         .target(
             name: "WireGuardKitC",
             dependencies: [],
@@ -60,10 +60,10 @@ let package = Package(
             publicHeadersPath: ".",
             linkerSettings: [.linkedLibrary("wg-go")]
         ),
-        .target(
-            name: "WireGuardNetworkExtension",
-            dependencies: ["WireGuardAppTunnel"],
-            publicHeadersPath: "."
-        )
+//        .target(
+//            name: "WireGuardNetworkExtension",
+//            dependencies: ["WireGuardAppTunnel"],
+//            publicHeadersPath: "."
+//        )
     ]
 )
