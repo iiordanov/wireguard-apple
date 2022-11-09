@@ -17,19 +17,20 @@ let package = Package(
     targets: [
         .target(
             name: "WireGuardKit",
-            dependencies: ["WireGuardKitC", "WireGuardKitGo"]
+            dependencies: ["WireGuardKitC", "WireGuardKitGo"],
+            path: "Sources/WireGuardKit"
         ),
-//        .target(
-//            name: "Shared",
-//            dependencies: ["WireGuardKit"],
-//            path: "Sources/Shared",
-//            exclude: [
-//                "Logging/ringlogger.h",
-//                "Logging/ringlogger.c",
-//                "Logging/test_ringlogger.c"
-//            ],
-//            publicHeadersPath: "."
-//        ),
+        .target(
+            name: "Shared",
+            dependencies: ["WireGuardKit"],
+            path: "Sources/Shared",
+            exclude: [
+                "Logging/ringlogger.h",
+                "Logging/ringlogger.c",
+                "Logging/test_ringlogger.c"
+            ],
+            publicHeadersPath: "."
+        ),
 //        .target(
 //            name: "WireGuardAppShared",
 //            dependencies: [],
