@@ -41,9 +41,21 @@ let package = Package(
             publicHeadersPath: "."
         ),
         .target(
-            name: "WireGuardAppTunnel",
-            dependencies: ["WireGuardKit", "Shared"],
-            path: "Sources/WireGuardApp/Tunnel",
+            name: "MinizipC",
+            dependencies: [],
+            path: "Sources/WireGuardApp/ZipArchive/3rdparty/minizip",
+            publicHeadersPath: "."
+        ),
+        .target(
+            name: "WireGuardApp",
+            dependencies: ["WireGuardKit", "Shared", "MinizipC"],
+            path: "Sources/WireGuardApp",
+            exclude: [
+                "Config",
+                "Resources",
+                "WireGuard-Bridging-Header.h",
+                "Sources/WireGuardApp/ZipArchive/3rdparty/minizip"
+            ],
             publicHeadersPath: "."
         ),
         .target(
@@ -66,7 +78,7 @@ let package = Package(
         ),
         .target(
             name: "WireGuardNetworkExtension",
-            dependencies: ["WireGuardAppTunnel"],
+            dependencies: ["WireGuardApp"],
             publicHeadersPath: "."
         )
     ]
