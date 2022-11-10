@@ -41,14 +41,8 @@ let package = Package(
             publicHeadersPath: "."
         ),
         .target(
-            name: "MinizipC",
-            dependencies: [],
-            path: "Sources/WireGuardApp/ZipArchive/3rdparty/minizip",
-            publicHeadersPath: "."
-        ),
-        .target(
             name: "WireGuardApp",
-            dependencies: ["WireGuardKit", "Shared", "MinizipC"],
+            dependencies: ["WireGuardKit", "Shared"],
             path: "Sources/WireGuardApp",
             exclude: [
                 "Base.lproj",
@@ -58,7 +52,7 @@ let package = Package(
                 "UI/macOS",
                 "UI/iOS/Assets.xcassets",
                 "UI/iOS/Base.lproj",
-                "ZipArchive/3rdparty/minizip",
+                "ZipArchive",
                 "ca.lproj",
                 "de.lproj",
                 "es.lproj",
