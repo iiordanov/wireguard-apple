@@ -21,8 +21,17 @@ let package = Package(
             path: "Sources/WireGuardKit"
         ),
         .target(
+            name: "SharedC",
+            dependencies: [],
+            path: "Sources/Shared/Logging",
+            exclude: [
+                "Logger.swift"
+            ],
+            publicHeadersPath: "."
+        ),
+        .target(
             name: "Shared",
-            dependencies: ["WireGuardKit"],
+            dependencies: ["SharedC", "WireGuardKit"],
             path: "Sources/Shared",
             exclude: [
                 "Logging/ringlogger.h",

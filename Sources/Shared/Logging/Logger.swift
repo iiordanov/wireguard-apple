@@ -3,6 +3,7 @@
 
 import Foundation
 import os.log
+import SharedC
 
 public class Logger {
     enum LoggerError: Error {
