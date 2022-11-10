@@ -4,7 +4,7 @@
 import Foundation
 import WireGuardKit
 
-extension TunnelConfiguration {
+public extension TunnelConfiguration {
 
     enum ParserState {
         case inInterfaceSection
