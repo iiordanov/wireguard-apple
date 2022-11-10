@@ -40,40 +40,7 @@ let package = Package(
             ],
             publicHeadersPath: "."
         ),
-        .target(
-            name: "WireGuardApp",
-            dependencies: ["WireGuardKit", "Shared"],
-            path: "Sources/WireGuardApp",
-            exclude: [
-                "Base.lproj",
-                "Config",
-                "Resources",
-                "WireGuard-Bridging-Header.h",
-                "UI/macOS",
-                "UI/iOS/Assets.xcassets",
-                "UI/iOS/Base.lproj",
-                "ZipArchive",
-                "ca.lproj",
-                "de.lproj",
-                "es.lproj",
-                "fa.lproj",
-                "fi.lproj",
-                "fr.lproj",
-                "id.lproj",
-                "it.lproj",
-                "ja.lproj",
-                "ko.lproj",
-                "pa.lproj",
-                "pl.lproj",
-                "ro.lproj",
-                "ru.lproj",
-                "sl.lproj",
-                "tr.lproj",
-                "zh-Hans.lproj",
-                "zh-Hant.lproj"
-            ],
-            publicHeadersPath: "."
-        ),
+
         .target(
             name: "WireGuardKitC",
             dependencies: [],
@@ -94,7 +61,7 @@ let package = Package(
         ),
         .target(
             name: "WireGuardNetworkExtension",
-            dependencies: ["WireGuardApp"],
+            dependencies: [],
             publicHeadersPath: "."
         )
     ]

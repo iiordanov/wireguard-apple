@@ -3,9 +3,9 @@
 
 import Foundation
 
-extension String {
+public extension String {
 
-    func splitToArray(separator: Character = ",", trimmingCharacters: CharacterSet? = nil) -> [String] {
+    public func splitToArray(separator: Character = ",", trimmingCharacters: CharacterSet? = nil) -> [String] {
         return split(separator: separator)
             .map {
                 if let charSet = trimmingCharacters {

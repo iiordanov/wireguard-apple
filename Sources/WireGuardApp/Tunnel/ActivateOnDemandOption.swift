@@ -64,11 +64,11 @@ extension ActivateOnDemandOption {
             return .anyInterface(.anySSID)
         case 2:
             guard let connectRule = rules.first(where: { $0.action == .connect }) else {
-                wg_log(.error, message: "Unexpected onDemandRules set on tunnel provider manager: \(rules.count) rules found but no connect rule.")
+                //wg_log(.error, message: "Unexpected onDemandRules set on tunnel provider manager: \(rules.count) rules found but no connect rule.")
                 return .off
             }
             guard let disconnectRule = rules.first(where: { $0.action == .disconnect }) else {
-                wg_log(.error, message: "Unexpected onDemandRules set on tunnel provider manager: \(rules.count) rules found but no disconnect rule.")
+                //wg_log(.error, message: "Unexpected onDemandRules set on tunnel provider manager: \(rules.count) rules found but no disconnect rule.")
                 return .off
             }
             if connectRule.interfaceTypeMatch == .wiFi && disconnectRule.interfaceTypeMatch == nonWiFiInterfaceType {
@@ -76,7 +76,7 @@ extension ActivateOnDemandOption {
             } else if connectRule.interfaceTypeMatch == nonWiFiInterfaceType && disconnectRule.interfaceTypeMatch == .wiFi {
                 return .nonWiFiInterfaceOnly
             } else {
-                wg_log(.error, message: "Unexpected onDemandRules set on tunnel provider manager: \(rules.count) rules found but interface types are inconsistent.")
+                //wg_log(.error, message: "Unexpected onDemandRules set on tunnel provider manager: \(rules.count) rules found but interface types are inconsistent.")
                 return .off
             }
         case 3:
@@ -93,11 +93,11 @@ extension ActivateOnDemandOption {
             case (.disconnect, .disconnect):
                 return .wiFiInterfaceOnly(.exceptSpecificSSIDs(ssids))
             default:
-                wg_log(.error, message: "Unexpected onDemandRules set on tunnel provider manager: \(rules.count) rules found")
+                //wg_log(.error, message: "Unexpected onDemandRules set on tunnel provider manager: \(rules.count) rules found")
                 return .off
             }
         default:
-            wg_log(.error, message: "Unexpected number of onDemandRules set on tunnel provider manager: \(rules.count) rules found")
+            //wg_log(.error, message: "Unexpected number of onDemandRules set on tunnel provider manager: \(rules.count) rules found")
             return .off
         }
     }

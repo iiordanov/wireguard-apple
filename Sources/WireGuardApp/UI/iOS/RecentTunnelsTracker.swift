@@ -2,6 +2,7 @@
 // Copyright © 2018-2021 WireGuard LLC. All Rights Reserved.
 
 import Foundation
+import Shared
 
 class RecentTunnelsTracker {
 
@@ -10,11 +11,11 @@ class RecentTunnelsTracker {
 
     private static var userDefaults: UserDefaults? {
         guard let appGroupId = FileManager.appGroupId else {
-            wg_log(.error, staticMessage: "Cannot obtain app group ID from bundle for tracking recently used tunnels")
+            //wg_log(.error, staticMessage: "Cannot obtain app group ID from bundle for tracking recently used tunnels")
             return nil
         }
         guard let userDefaults = UserDefaults(suiteName: appGroupId) else {
-            wg_log(.error, staticMessage: "Cannot obtain shared user defaults for tracking recently used tunnels")
+            //wg_log(.error, staticMessage: "Cannot obtain shared user defaults for tracking recently used tunnels")
             return nil
         }
         return userDefaults

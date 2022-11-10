@@ -4,8 +4,8 @@
 import Foundation
 import os.log
 
-extension FileManager {
-    static var appGroupId: String? {
+public extension FileManager {
+    public static var appGroupId: String? {
         #if os(iOS)
         let appGroupIdInfoDictionaryKey = "com.wireguard.ios.app_group_id"
         #elseif os(macOS)
