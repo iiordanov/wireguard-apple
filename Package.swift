@@ -54,7 +54,9 @@ let package = Package(
                 "Config",
                 "Resources",
                 "WireGuard-Bridging-Header.h",
-                "Sources/WireGuardApp/ZipArchive/3rdparty/minizip"
+                "UI/macOS/Assets.xcassets",
+                "UI/iOS/Assets.xcassets",
+                "ZipArchive/3rdparty/minizip"
             ],
             publicHeadersPath: "."
         ),
