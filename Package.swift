@@ -61,7 +61,7 @@ let package = Package(
         ),
         .target(
             name: "WireGuardNetworkExtension",
-            dependencies: [],
+            dependencies: ["Shared"],
             publicHeadersPath: "."
         )
     ]
