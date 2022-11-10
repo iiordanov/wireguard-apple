@@ -32,12 +32,7 @@ let package = Package(
         .target(
             name: "Shared",
             dependencies: ["SharedLoggingC", "WireGuardKit"],
-            path: "Sources/Shared",
-            exclude: [
-                "Logging/ringlogger.h",
-                "Logging/ringlogger.c",
-                "Logging/test_ringlogger.c"
-            ],
+            path: "Sources/Shared/Model",
             publicHeadersPath: "."
         ),
 
