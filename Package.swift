@@ -57,6 +57,7 @@ let package = Package(
                 "WireGuard-Bridging-Header.h",
                 "UI/macOS",
                 "UI/iOS/Assets.xcassets",
+                "UI/iOS/Base.lproj",
                 "ZipArchive/3rdparty/minizip",
                 "ca.lproj",
                 "de.lproj",
