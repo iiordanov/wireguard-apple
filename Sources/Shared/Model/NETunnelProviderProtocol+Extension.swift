@@ -4,7 +4,7 @@
 import NetworkExtension
 import WireGuardKit
 
-enum PacketTunnelProviderError: String, Error {
+public enum PacketTunnelProviderError: String, Error {
     case savedProtocolConfigurationIsInvalid
     case dnsResolutionFailure
     case couldNotStartBackend
