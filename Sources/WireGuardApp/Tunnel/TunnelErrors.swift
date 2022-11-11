@@ -2,7 +2,7 @@
 // Copyright © 2018-2021 WireGuard LLC. All Rights Reserved.
 
 import NetworkExtension
-import WireguardShared
+import WireGuardShared
 
 enum TunnelsManagerError: WireGuardAppError {
     case tunnelNameEmpty
