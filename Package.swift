@@ -21,7 +21,7 @@ let package = Package(
             path: "Sources/WireGuardKit"
         ),
         .target(
-            name: "WireguardSharedLoggingC",
+            name: "WireGuardSharedLoggingC",
             dependencies: [],
             path: "Sources/Shared/Logging",
             exclude: [
@@ -30,8 +30,8 @@ let package = Package(
             publicHeadersPath: "."
         ),
         .target(
-            name: "WireguardSharedLogging",
-            dependencies: ["SharedLoggingC"],
+            name: "WireGuardSharedLogging",
+            dependencies: ["WireGuardSharedLoggingC"],
             path: "Sources/Shared/Logging",
             exclude: [
                 "ringlogger.c",
@@ -41,7 +41,7 @@ let package = Package(
             publicHeadersPath: "."
         ),
         .target(
-            name: "WireguardShared",
+            name: "WireGuardShared",
             dependencies: ["WireGuardKit", "SharedLogging"],
             path: "Sources/Shared",
             exclude: [
