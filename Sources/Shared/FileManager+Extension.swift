@@ -3,7 +3,7 @@
 
 import Foundation
 import os.log
-import WireguardSharedLogging
+import WireGuardSharedLogging
 
 public extension FileManager {
     public static var appGroupId: String? {
