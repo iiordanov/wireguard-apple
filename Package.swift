@@ -42,7 +42,7 @@ let package = Package(
         ),
         .target(
             name: "WireGuardShared",
-            dependencies: ["WireGuardKit", "SharedLogging"],
+            dependencies: ["WireGuardKit", "WireGuardSharedLogging"],
             path: "Sources/Shared",
             exclude: [
                 "Logging"
