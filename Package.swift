@@ -41,11 +41,18 @@ let package = Package(
             publicHeadersPath: "."
         ),
         .target(
-            name: "WireGuardShared",
+            name: "WireGuardSharedModel",
             dependencies: ["WireGuardKit", "WireGuardSharedLogging"],
+            path: "Sources/Shared/Model",
+            publicHeadersPath: "."
+        ),
+        .target(
+            name: "WireGuardShared",
+            dependencies: ["WireGuardSharedModel", "WireGuardKit", "WireGuardSharedLogging"],
             path: "Sources/Shared",
             exclude: [
-                "Logging"
+                "Logging",
+                "Model"
             ],
             publicHeadersPath: "."
         ),
