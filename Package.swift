@@ -84,6 +84,7 @@ let package = Package(
             name: "WireGuardApp",
             dependencies: ["WireGuardKit", "WireGuardShared", "WireGuardSharedModel"],
             path: "Sources/WireGuardApp",
+            exclude: [
                 "Base.lproj",
                 "Config",
                 "Resources",
@@ -111,6 +112,7 @@ let package = Package(
                 "zh-Hans.lproj",
                 "zh-Hant.lproj"
              ],
-
+            publicHeadersPath: "."
+        )
     ]
 )
