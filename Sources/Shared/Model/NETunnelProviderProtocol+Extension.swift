@@ -54,13 +54,13 @@ extension NETunnelProviderProtocol {
         Keychain.deleteReference(called: ref)
     }
 
-    func verifyConfigurationReference() -> Bool {
+    public func verifyConfigurationReference() -> Bool {
         guard let ref = passwordReference else { return false }
         return Keychain.verifyReference(called: ref)
     }
 
     @discardableResult
-    func migrateConfigurationIfNeeded(called name: String) -> Bool {
+    public func migrateConfigurationIfNeeded(called name: String) -> Bool {
         /* This is how we did things before we switched to putting items
          * in the keychain. But it's still useful to keep the migration
          * around so that .mobileconfig files are easier.
