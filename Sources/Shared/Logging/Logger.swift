@@ -33,7 +33,7 @@ public class Logger {
         return write_log_to_file(targetFile, self.log) == 0
     }
 
-    static func configureGlobal(tagged tag: String, withFilePath filePath: String?) {
+    public static func configureGlobal(tagged tag: String, withFilePath filePath: String?) {
         if Logger.global != nil {
             return
         }
