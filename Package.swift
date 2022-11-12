@@ -25,7 +25,8 @@ let package = Package(
             dependencies: [],
             path: "Sources/Shared/Logging",
             exclude: [
-                "Logger.swift"
+                "Logger.swift",
+                "test_ringlogger.c"
             ],
             publicHeadersPath: "."
         ),
