@@ -5,6 +5,7 @@ import Foundation
 import NetworkExtension
 import os.log
 import WireGuardShared
+import WireGuardSharedModel
 import WireGuardKit
 
 protocol TunnelsManagerListDelegate: AnyObject {
