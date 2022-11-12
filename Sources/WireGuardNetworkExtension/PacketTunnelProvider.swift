@@ -6,6 +6,7 @@ import NetworkExtension
 import os
 import WireGuardKit
 import WireGuardSharedLogging
+import WireGuardSharedModel
 
 class PacketTunnelProvider: NEPacketTunnelProvider {
 
