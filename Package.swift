@@ -95,6 +95,7 @@ let package = Package(
                 "UI/iOS/AppDelegate.swift",
                 "UI/iOS/Assets.xcassets",
                 "UI/iOS/Base.lproj",
+                "UI/iOS/View",
                 "UI/iOS/ViewController",
                 "WireGuard-Bridging-Header.h",
                 "ZipArchive",
