@@ -155,7 +155,7 @@ extension NETunnelProviderProtocol {
         }
     }
 
-    func asTunnelConfiguration(called name: String? = nil) -> TunnelConfiguration? {
+    public func asTunnelConfiguration(called name: String? = nil) -> TunnelConfiguration? {
         if let passwordReference = passwordReference,
             let config = Keychain.openReference(called: passwordReference) {
             return try? TunnelConfiguration(fromWgQuickConfig: config, called: name)
