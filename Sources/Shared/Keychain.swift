@@ -4,7 +4,7 @@
 import Foundation
 import Security
 
-class Keychain {
+public class Keychain {
     static func openReference(called ref: Data) -> String? {
         var result: CFTypeRef?
         let ret = SecItemCopyMatching([kSecValuePersistentRef: ref,
