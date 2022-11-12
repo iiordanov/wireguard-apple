@@ -91,6 +91,7 @@ let package = Package(
                 "UI/macOS",
                 "UI/TunnelViewModel.swift",
                 "UI/TunnelImporter.swift",
+                "UI/iOS/AppDelegate.swift",
                 "UI/iOS/Assets.xcassets",
                 "UI/iOS/Base.lproj",
                 "WireGuard-Bridging-Header.h",
