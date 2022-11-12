@@ -2,8 +2,6 @@
 // Copyright © 2018-2021 WireGuard LLC. All Rights Reserved.
 
 import Foundation
-import WireGuardKit
-import WireGuardShared
 
 extension TunnelConfiguration {
     convenience init(fromUapiConfig uapiConfig: String, basedOn base: TunnelConfiguration? = nil) throws {
