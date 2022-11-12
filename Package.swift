@@ -11,13 +11,13 @@ let package = Package(
         .iOS(.v12)
     ],
     products: [
-        .library(name: "WireGuardKit", targets: ["WireGuardKit", "WireGuardNetworkExtension"])
+        .library(name: "WireGuardKit", targets: ["WireGuardKit", , "WireGuardSharedLogging", "WireGuardSharedLoggingC", "WireGuardSharedModel", "WireGuardShared", "WireGuardNetworkExtension"])
     ],
     dependencies: [],
     targets: [
         .target(
             name: "WireGuardKit",
-            dependencies: ["WireGuardKitC", "WireGuardKitGo", "WireGuardSharedLogging", "WireGuardSharedLoggingC", "WireGuardSharedModel", "WireGuardShared", "WireGuardNetworkExtension"],
+            dependencies: ["WireGuardKitC", "WireGuardKitGo"],
             path: "Sources/WireGuardKit"
         ),
         .target(
