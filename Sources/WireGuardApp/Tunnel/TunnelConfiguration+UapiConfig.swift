@@ -3,6 +3,7 @@
 
 import Foundation
 import WireGuardKit
+import WireGuardSharedModel
 
 extension TunnelConfiguration {
     convenience init(fromUapiConfig uapiConfig: String, basedOn base: TunnelConfiguration? = nil) throws {
