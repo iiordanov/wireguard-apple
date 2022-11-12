@@ -81,6 +81,13 @@ let package = Package(
             publicHeadersPath: "."
         ),
         .target(
+            name: "WireGuardAppTunnel",
+            dependencies: ["WireGuardKit", "WireGuardShared", "WireGuardSharedModel"],
+            path: "Sources/WireGuardApp/Tunnel",
+            publicHeadersPath: "."
+        ),
+        /*
+        .target(
             name: "WireGuardApp",
             dependencies: ["WireGuardKit", "WireGuardShared", "WireGuardSharedModel"],
             path: "Sources/WireGuardApp",
@@ -114,5 +121,6 @@ let package = Package(
             ],
             publicHeadersPath: "."
         )
+        */
     ]
 )
