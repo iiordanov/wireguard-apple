@@ -10,7 +10,7 @@ public class Logger {
         case openFailure
     }
 
-    static var global: Logger?
+    public static var global: Logger?
 
     var log: OpaquePointer
     var tag: String
