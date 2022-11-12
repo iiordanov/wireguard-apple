@@ -79,7 +79,7 @@ let package = Package(
             name: "WireGuardNetworkExtension",
             dependencies: ["WireGuardShared", "WireGuardSharedModel", "WireGuardSharedLogging"],
             publicHeadersPath: "."
-        )
+        ),
         .target(
             name: "WireGuardApp",
             dependencies: ["WireGuardKit", "WireGuardShared", "WireGuardSharedModel"],
@@ -111,7 +111,7 @@ let package = Package(
                 "tr.lproj",
                 "zh-Hans.lproj",
                 "zh-Hant.lproj"
-             ],
+            ],
             publicHeadersPath: "."
         )
     ]
