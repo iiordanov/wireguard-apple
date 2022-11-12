@@ -49,7 +49,7 @@ extension NETunnelProviderProtocol {
         return nil
     }
 
-    func destroyConfigurationReference() {
+    public func destroyConfigurationReference() {
         guard let ref = passwordReference else { return }
         Keychain.deleteReference(called: ref)
     }
