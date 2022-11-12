@@ -2,7 +2,7 @@
 // Copyright © 2018-2021 WireGuard LLC. All Rights Reserved.
 
 import Foundation
-import Shared
+import WireGuardShared
 
 class RecentTunnelsTracker {
 
