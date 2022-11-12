@@ -89,6 +89,7 @@ let package = Package(
                 "Config",
                 "Resources",
                 "UI/macOS",
+                "UI/TunnelImporter.swift",
                 "UI/iOS/Assets.xcassets",
                 "UI/iOS/Base.lproj",
                 "WireGuard-Bridging-Header.h",
