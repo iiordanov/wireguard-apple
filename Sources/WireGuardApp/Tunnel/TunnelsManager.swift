@@ -4,6 +4,7 @@
 import Foundation
 import NetworkExtension
 import os.log
+import WireGuardShared
 
 protocol TunnelsManagerListDelegate: AnyObject {
     func tunnelAdded(at index: Int)
