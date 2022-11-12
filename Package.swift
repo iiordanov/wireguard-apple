@@ -11,7 +11,7 @@ let package = Package(
         .iOS(.v12)
     ],
     products: [
-        .library(name: "WireGuardKit", targets: ["WireGuardKit", "WireGuardSharedLogging", "WireGuardSharedLoggingC", "WireGuardSharedModel", "WireGuardShared", "WireGuardNetworkExtension"])
+        .library(name: "WireGuardKit", targets: ["WireGuardKit", "WireGuardSharedLogging", "WireGuardSharedLoggingC", "WireGuardSharedModel", "WireGuardShared", "WireGuardNetworkExtension", "WireGuardApp"])
     ],
     dependencies: [],
     targets: [
@@ -80,5 +80,37 @@ let package = Package(
             dependencies: ["WireGuardShared", "WireGuardSharedModel", "WireGuardSharedLogging"],
             publicHeadersPath: "."
         )
+        .target(
+            name: "WireGuardApp",
+            dependencies: ["WireGuardKit", "WireGuardShared", "WireGuardSharedModel"],
+            path: "Sources/WireGuardApp",
+                "Base.lproj",
+                "Config",
+                "Resources",
+                "WireGuard-Bridging-Header.h",
+                "UI/macOS",
+                "UI/iOS/Assets.xcassets",
+                "UI/iOS/Base.lproj",
+                "ZipArchive",
+                "ca.lproj",
+                "de.lproj",
+                "fa.lproj",
+                "fi.lproj",
+                "fr.lproj",
+                "es.lproj",
+                "id.lproj",
+                "it.lproj",
+                "ja.lproj",
+                "ko.lproj",
+                "pa.lproj",
+                "pl.lproj",
+                "ro.lproj",
+                "ru.lproj",
+                "sl.lproj",
+                "tr.lproj",
+                "zh-Hans.lproj",
+                "zh-Hant.lproj"
+             ],
+
     ]
 )
