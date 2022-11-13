@@ -89,7 +89,7 @@ let package = Package(
                 "Config",
                 "Resources",
                 "UI/macOS",
-                "Tunnel/TunnelsManager.swift",
+                "Tunnel",
                 "UI/ActivateOnDemandViewModel.swift",
                 "UI/TunnelViewModel.swift",
                 "UI/TunnelImporter.swift",
