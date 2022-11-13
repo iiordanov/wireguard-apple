@@ -3,10 +3,10 @@
 
 import Foundation
 
-func tr(_ key: String) -> String {
+public func tr(_ key: String) -> String {
     return NSLocalizedString(key, comment: "")
 }
 
-func tr(format: String, _ arguments: CVarArg...) -> String {
+public func tr(format: String, _ arguments: CVarArg...) -> String {
     return String(format: NSLocalizedString(format, comment: ""), arguments: arguments)
 }
