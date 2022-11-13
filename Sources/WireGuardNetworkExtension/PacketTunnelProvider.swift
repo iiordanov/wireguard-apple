@@ -8,7 +8,7 @@ import WireGuardKit
 import WireGuardSharedLogging
 import WireGuardSharedModel
 
-public open class PacketTunnelProvider: NEPacketTunnelProvider {
+open class PacketTunnelProvider: NEPacketTunnelProvider {
 
     private lazy var adapter: WireGuardAdapter = {
         return WireGuardAdapter(with: self) { logLevel, message in
