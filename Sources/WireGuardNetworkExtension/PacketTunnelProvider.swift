@@ -16,7 +16,7 @@ public class PacketTunnelProvider: NEPacketTunnelProvider {
         }
     }()
 
-    override func startTunnel(options: [String: NSObject]?, completionHandler: @escaping (Error?) -> Void) {
+    public override func startTunnel(options: [String: NSObject]?, completionHandler: @escaping (Error?) -> Void) {
         let activationAttemptId = options?["activationAttemptId"] as? String
         let errorNotifier = ErrorNotifier(activationAttemptId: activationAttemptId)
 
@@ -72,7 +72,7 @@ public class PacketTunnelProvider: NEPacketTunnelProvider {
         }
     }
 
-    override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
+    public override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
         //wg_log(.info, staticMessage: "Stopping tunnel")
 
         adapter.stop { error in
@@ -92,7 +92,7 @@ public class PacketTunnelProvider: NEPacketTunnelProvider {
         }
     }
 
-    override func handleAppMessage(_ messageData: Data, completionHandler: ((Data?) -> Void)? = nil) {
+    public override func handleAppMessage(_ messageData: Data, completionHandler: ((Data?) -> Void)? = nil) {
         guard let completionHandler = completionHandler else { return }
 
         if messageData.count == 1 && messageData[0] == 0 {
