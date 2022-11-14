@@ -12,7 +12,7 @@ public enum TunnelsManagerError: WireGuardAppError {
     case systemErrorOnModifyTunnel(systemError: Error)
     case systemErrorOnRemoveTunnel(systemError: Error)
 
-    var alertText: AlertText {
+    public var alertText: AlertText {
         switch self {
         case .tunnelNameEmpty:
             return (tr("alertTunnelNameEmptyTitle"), tr("alertTunnelNameEmptyMessage"))
@@ -37,7 +37,7 @@ public enum TunnelsManagerActivationAttemptError: WireGuardAppError {
     case failedWhileLoading(systemError: Error) // reloading config throwed
     case failedBecauseOfTooManyErrors(lastSystemError: Error) // recursion limit reached
 
-    var alertText: AlertText {
+    public var alertText: AlertText {
         switch self {
         case .tunnelIsNotInactive:
             return (tr("alertTunnelActivationErrorTunnelIsNotInactiveTitle"), tr("alertTunnelActivationErrorTunnelIsNotInactiveMessage"))
@@ -55,7 +55,7 @@ public enum TunnelsManagerActivationError: WireGuardAppError {
     case activationFailed(wasOnDemandEnabled: Bool)
     case activationFailedWithExtensionError(title: String, message: String, wasOnDemandEnabled: Bool)
 
-    var alertText: AlertText {
+    public var alertText: AlertText {
         switch self {
         case .activationFailed:
             return (tr("alertTunnelActivationFailureTitle"), tr("alertTunnelActivationFailureMessage"))
