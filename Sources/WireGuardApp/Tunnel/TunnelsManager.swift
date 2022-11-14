@@ -22,7 +22,7 @@ protocol TunnelsManagerActivationDelegate: AnyObject {
     func tunnelActivationSucceeded(tunnel: TunnelContainer) // status changed to connected
 }
 
-class TunnelsManager {
+public class TunnelsManager {
     private var tunnels: [TunnelContainer]
     weak var tunnelsListDelegate: TunnelsManagerListDelegate?
     weak var activationDelegate: TunnelsManagerActivationDelegate?
@@ -566,7 +566,7 @@ private func lastErrorTextFromNetworkExtension(for tunnel: TunnelContainer) -> (
     return (tr("alertTunnelActivationFailureTitle"), tr("alertTunnelActivationFailureMessage"))
 }
 
-class TunnelContainer: NSObject {
+public class TunnelContainer: NSObject {
     @objc dynamic var name: String
     @objc dynamic var status: TunnelStatus
 
