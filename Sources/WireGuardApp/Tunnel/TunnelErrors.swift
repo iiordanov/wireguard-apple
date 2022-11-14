@@ -66,7 +66,7 @@ enum TunnelsManagerActivationError: WireGuardAppError {
 }
 
 extension PacketTunnelProviderError: WireGuardAppError {
-    var alertText: AlertText {
+    public var alertText: AlertText {
         switch self {
         case .savedProtocolConfigurationIsInvalid:
             return (tr("alertTunnelActivationFailureTitle"), tr("alertTunnelActivationSavedConfigFailureMessage"))
