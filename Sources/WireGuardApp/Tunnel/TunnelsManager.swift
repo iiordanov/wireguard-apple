@@ -25,7 +25,7 @@ public protocol TunnelsManagerActivationDelegate: AnyObject {
 public class TunnelsManager {
     private var tunnels: [TunnelContainer]
     weak var tunnelsListDelegate: TunnelsManagerListDelegate?
-    weak var activationDelegate: TunnelsManagerActivationDelegate?
+    public weak var activationDelegate: TunnelsManagerActivationDelegate?
     private var statusObservationToken: NotificationToken?
     private var waiteeObservationToken: NSKeyValueObservation?
     private var configurationsObservationToken: NotificationToken?
