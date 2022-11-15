@@ -3,6 +3,7 @@
 
 import NetworkExtension
 import WireGuardShared
+import WireGuardSharedLogging
 
 public enum ActivateOnDemandOption: Equatable {
     case off
