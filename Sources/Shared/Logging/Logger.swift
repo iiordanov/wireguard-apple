@@ -55,12 +55,12 @@ public class Logger {
     }
 }
 
-func wg_log(_ type: OSLogType, staticMessage msg: StaticString) {
+public func wg_log(_ type: OSLogType, staticMessage msg: StaticString) {
     os_log(msg, log: OSLog.default, type: type)
     Logger.global?.log(message: "\(msg)")
 }
 
-func wg_log(_ type: OSLogType, message msg: String) {
+public func wg_log(_ type: OSLogType, message msg: String) {
     os_log("%{public}s", log: OSLog.default, type: type, msg)
     Logger.global?.log(message: msg)
 }

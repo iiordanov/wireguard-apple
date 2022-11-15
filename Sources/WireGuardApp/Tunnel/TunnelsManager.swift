@@ -42,7 +42,7 @@ public class TunnelsManager {
         #else
         NETunnelProviderManager.loadAllFromPreferences { managers, error in
             if let error = error {
-                //wg_log(.error, message: "Failed to load tunnel provider managers: \(error)")
+                wg_log(.error, message: "Failed to load tunnel provider managers: \(error)")
                 completionHandler(.failure(TunnelsManagerError.systemErrorOnListingTunnels(systemError: error)))
                 return
             }
@@ -73,7 +73,7 @@ public class TunnelsManager {
                 if let ref = passwordRef {
                     refs.insert(ref)
                 } else {
-                    //wg_log(.info, message: "Removing orphaned tunnel with non-verifying keychain entry: \(tunnelManager.localizedDescription ?? "<unknown>")")
+                    wg_log(.info, message: "Removing orphaned tunnel with non-verifying keychain entry: \(tunnelManager.localizedDescription ?? "<unknown>")")
                     tunnelManager.removeFromPreferences { _ in }
                     tunnelManagers.remove(at: index)
                 }
@@ -142,7 +142,7 @@ public class TunnelsManager {
 
         tunnelProviderManager.saveToPreferences { [weak self] error in
             if let error = error {
-                //wg_log(.error, message: "Add: Saving configuration failed: \(error)")
+                wg_log(.error, message: "Add: Saving configuration failed: \(error)")
                 (tunnelProviderManager.protocolConfiguration as? NETunnelProviderProtocol)?.destroyConfigurationReference()
                 completionHandler(.failure(TunnelsManagerError.systemErrorOnAddTunnel(systemError: error)))
                 return
@@ -260,7 +260,7 @@ public class TunnelsManager {
         tunnelProviderManager.saveToPreferences { [weak self] error in
             if let error = error {
                 // TODO: the passwordReference for the old one has already been removed at this point and we can't easily roll back!
-                //wg_log(.error, message: "Modify: Saving configuration failed: \(error)")
+                wg_log(.error, message: "Modify: Saving configuration failed: \(error)")
                 completionHandler(TunnelsManagerError.systemErrorOnModifyTunnel(systemError: error))
                 return
             }
@@ -290,7 +290,7 @@ public class TunnelsManager {
                 tunnelProviderManager.loadFromPreferences { error in
                     tunnel.isActivateOnDemandEnabled = tunnelProviderManager.isOnDemandEnabled
                     if let error = error {
-                        //wg_log(.error, message: "Modify: Re-loading after saving configuration failed: \(error)")
+                        wg_log(.error, message: "Modify: Re-loading after saving configuration failed: \(error)")
                         completionHandler(TunnelsManagerError.systemErrorOnModifyTunnel(systemError: error))
                     } else {
                         completionHandler(nil)
@@ -315,7 +315,7 @@ public class TunnelsManager {
         #endif
         tunnelProviderManager.removeFromPreferences { [weak self] error in
             if let error = error {
-                //wg_log(.error, message: "Remove: Saving configuration failed: \(error)")
+                wg_log(.error, message: "Remove: Saving configuration failed: \(error)")
                 completionHandler(TunnelsManagerError.systemErrorOnRemoveTunnel(systemError: error))
                 return
             }
@@ -377,7 +377,7 @@ public class TunnelsManager {
         tunnelProviderManager.isEnabled = true
         tunnelProviderManager.saveToPreferences { error in
             if let error = error {
-                //wg_log(.error, message: "Modify On-Demand: Saving configuration failed: \(error)")
+                wg_log(.error, message: "Modify On-Demand: Saving configuration failed: \(error)")
                 completionHandler(TunnelsManagerError.systemErrorOnModifyTunnel(systemError: error))
                 return
             }
@@ -388,7 +388,7 @@ public class TunnelsManager {
                     // isActivateOnDemandEnabled will get changed in reload(), but no harm in setting it here too
                     tunnel.isActivateOnDemandEnabled = tunnelProviderManager.isOnDemandEnabled
                     if let error = error {
-                        //wg_log(.error, message: "Modify On-Demand: Re-loading after saving configuration failed: \(error)")
+                        wg_log(.error, message: "Modify On-Demand: Re-loading after saving configuration failed: \(error)")
                         completionHandler(TunnelsManagerError.systemErrorOnModifyTunnel(systemError: error))
                         return
                     }
@@ -443,14 +443,14 @@ public class TunnelsManager {
         }
 
         if let tunnelInOperation = tunnels.first(where: { $0.status != .inactive }) {
-            //wg_log(.info, message: "Tunnel '\(tunnel.name)' waiting for deactivation of '\(tunnelInOperation.name)'")
+            wg_log(.info, message: "Tunnel '\(tunnel.name)' waiting for deactivation of '\(tunnelInOperation.name)'")
             tunnel.status = .waiting
             activateWaitingTunnelOnDeactivation(of: tunnelInOperation)
             if tunnelInOperation.status != .deactivating {
                 if tunnelInOperation.isActivateOnDemandEnabled {
                     setOnDemandEnabled(false, on: tunnelInOperation) { [weak self] error in
                         guard error == nil else {
-                            //wg_log(.error, message: "Unable to activate tunnel '\(tunnel.name)' because on-demand could not be disabled on active tunnel '\(tunnel.name)'")
+                            wg_log(.error, message: "Unable to activate tunnel '\(tunnel.name)' because on-demand could not be disabled on active tunnel '\(tunnel.name)'")
                             return
                         }
                         self?.startDeactivation(of: tunnelInOperation)
@@ -506,7 +506,7 @@ public class TunnelsManager {
                 let tunnelProvider = session.manager as? NETunnelProviderManager,
                 let tunnel = self.tunnels.first(where: { $0.tunnelProvider == tunnelProvider }) else { return }
 
-            //wg_log(.debug, message: "Tunnel '\(tunnel.name)' connection status changed to '\(tunnel.tunnelProvider.connection.status)'")
+            wg_log(.debug, message: "Tunnel '\(tunnel.name)' connection status changed to '\(tunnel.tunnelProvider.connection.status)'")
 
             if tunnel.isAttemptingActivation {
                 if session.status == .connected {
@@ -579,7 +579,7 @@ public class TunnelContainer: NSObject {
                 self.activationTimer?.invalidate()
                 let activationTimer = Timer(timeInterval: 5 /* seconds */, repeats: true) { [weak self] _ in
                     guard let self = self else { return }
-                    //wg_log(.debug, message: "Status update notification timeout for tunnel '\(self.name)'. Tunnel status is now '\(self.tunnelProvider.connection.status)'.")
+                    wg_log(.debug, message: "Status update notification timeout for tunnel '\(self.name)'. Tunnel status is now '\(self.tunnelProvider.connection.status)'.")
                     switch self.tunnelProvider.connection.status {
                     case .connected, .disconnected, .invalid:
                         self.activationTimer?.invalidate()
@@ -656,28 +656,28 @@ public class TunnelContainer: NSObject {
 
     fileprivate func startActivation(recursionCount: UInt = 0, lastError: Error? = nil, activationDelegate: TunnelsManagerActivationDelegate?) {
         if recursionCount >= 8 {
-            //wg_log(.error, message: "startActivation: Failed after 8 attempts. Giving up with \(lastError!)")
+            wg_log(.error, message: "startActivation: Failed after 8 attempts. Giving up with \(lastError!)")
             activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedBecauseOfTooManyErrors(lastSystemError: lastError!))
             return
         }
 
-        //wg_log(.debug, message: "startActivation: Entering (tunnel: \(name))")
+        wg_log(.debug, message: "startActivation: Entering (tunnel: \(name))")
 
         status = .activating // Ensure that no other tunnel can attempt activation until this tunnel is done trying
 
         guard tunnelProvider.isEnabled else {
             // In case the tunnel had gotten disabled, re-enable and save it,
             // then call this function again.
-            //wg_log(.debug, staticMessage: "startActivation: Tunnel is disabled. Re-enabling and saving")
+            wg_log(.debug, staticMessage: "startActivation: Tunnel is disabled. Re-enabling and saving")
             tunnelProvider.isEnabled = true
             tunnelProvider.saveToPreferences { [weak self] error in
                 guard let self = self else { return }
                 if error != nil {
-                    //wg_log(.error, message: "Error saving tunnel after re-enabling: \(error!)")
+                    wg_log(.error, message: "Error saving tunnel after re-enabling: \(error!)")
                     activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileSaving(systemError: error!))
                     return
                 }
-                //wg_log(.debug, staticMessage: "startActivation: Tunnel saved after re-enabling, invoking startActivation")
+                wg_log(.debug, staticMessage: "startActivation: Tunnel saved after re-enabling, invoking startActivation")
                 self.startActivation(recursionCount: recursionCount + 1, lastError: NEVPNError(NEVPNError.configurationUnknown), activationDelegate: activationDelegate)
             }
             return
@@ -685,44 +685,44 @@ public class TunnelContainer: NSObject {
 
         // Start the tunnel
         do {
-            //wg_log(.debug, staticMessage: "startActivation: Starting tunnel")
+            wg_log(.debug, staticMessage: "startActivation: Starting tunnel")
             isAttemptingActivation = true
             let activationAttemptId = UUID().uuidString
             self.activationAttemptId = activationAttemptId
             try (tunnelProvider.connection as? NETunnelProviderSession)?.startTunnel(options: ["activationAttemptId": activationAttemptId])
-            //wg_log(.debug, staticMessage: "startActivation: Success")
+            wg_log(.debug, staticMessage: "startActivation: Success")
             activationDelegate?.tunnelActivationAttemptSucceeded(tunnel: self)
         } catch let error {
             isAttemptingActivation = false
             guard let systemError = error as? NEVPNError else {
-                //wg_log(.error, message: "Failed to activate tunnel: Error: \(error)")
+                wg_log(.error, message: "Failed to activate tunnel: Error: \(error)")
                 status = .inactive
                 activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileStarting(systemError: error))
                 return
             }
             guard systemError.code == NEVPNError.configurationInvalid || systemError.code == NEVPNError.configurationStale else {
-                //wg_log(.error, message: "Failed to activate tunnel: VPN Error: \(error)")
+                wg_log(.error, message: "Failed to activate tunnel: VPN Error: \(error)")
                 status = .inactive
                 activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileStarting(systemError: systemError))
                 return
             }
-            //wg_log(.debug, staticMessage: "startActivation: Will reload tunnel and then try to start it.")
+            wg_log(.debug, staticMessage: "startActivation: Will reload tunnel and then try to start it.")
             tunnelProvider.loadFromPreferences { [weak self] error in
                 guard let self = self else { return }
                 if error != nil {
-                    //wg_log(.error, message: "startActivation: Error reloading tunnel: \(error!)")
+                    wg_log(.error, message: "startActivation: Error reloading tunnel: \(error!)")
                     self.status = .inactive
                     activationDelegate?.tunnelActivationAttemptFailed(tunnel: self, error: .failedWhileLoading(systemError: systemError))
                     return
                 }
-                //wg_log(.debug, staticMessage: "startActivation: Tunnel reloaded, invoking startActivation")
+                wg_log(.debug, staticMessage: "startActivation: Tunnel reloaded, invoking startActivation")
                 self.startActivation(recursionCount: recursionCount + 1, lastError: systemError, activationDelegate: activationDelegate)
             }
         }
     }
 
     fileprivate func startDeactivation() {
-        //wg_log(.debug, message: "startDeactivation: Tunnel: \(name)")
+        wg_log(.debug, message: "startDeactivation: Tunnel: \(name)")
         (tunnelProvider.connection as? NETunnelProviderSession)?.stopTunnel()
     }
 }
