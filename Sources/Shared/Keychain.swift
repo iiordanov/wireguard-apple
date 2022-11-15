@@ -3,6 +3,7 @@
 
 import Foundation
 import Security
+import WireGuardSharedLogging
 
 public class Keychain {
     public static func openReference(called ref: Data) -> String? {
