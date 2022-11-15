@@ -12,7 +12,7 @@ open class PacketTunnelProvider: NEPacketTunnelProvider {
 
     private lazy var adapter: WireGuardAdapter = {
         return WireGuardAdapter(with: self) { logLevel, message in
-            //wg_log(logLevel.osLogLevel, message: message)
+            wg_log(logLevel.osLogLevel, message: message)
         }
     }()
 
@@ -22,7 +22,7 @@ open class PacketTunnelProvider: NEPacketTunnelProvider {
 
         Logger.configureGlobal(tagged: "NET", withFilePath: FileManager.logFileURL?.path)
 
-        //wg_log(.info, message: "Starting tunnel from the " + (activationAttemptId == nil ? "OS directly, rather than the app" : "app"))
+        wg_log(.info, message: "Starting tunnel from the " + (activationAttemptId == nil ? "OS directly, rather than the app" : "app"))
 
         guard let tunnelProviderProtocol = self.protocolConfiguration as? NETunnelProviderProtocol,
               let tunnelConfiguration = tunnelProviderProtocol.asTunnelConfiguration() else {
@@ -36,7 +36,7 @@ open class PacketTunnelProvider: NEPacketTunnelProvider {
             guard let adapterError = adapterError else {
                 let interfaceName = self.adapter.interfaceName ?? "unknown"
 
-                //wg_log(.info, message: "Tunnel interface is \(interfaceName)")
+                wg_log(.info, message: "Tunnel interface is \(interfaceName)")
 
                 completionHandler(nil)
                 return
@@ -44,24 +44,24 @@ open class PacketTunnelProvider: NEPacketTunnelProvider {
 
             switch adapterError {
             case .cannotLocateTunnelFileDescriptor:
-                //wg_log(.error, staticMessage: "Starting tunnel failed: could not determine file descriptor")
+                wg_log(.error, staticMessage: "Starting tunnel failed: could not determine file descriptor")
                 errorNotifier.notify(PacketTunnelProviderError.couldNotDetermineFileDescriptor)
                 completionHandler(PacketTunnelProviderError.couldNotDetermineFileDescriptor)
 
             case .dnsResolution(let dnsErrors):
                 let hostnamesWithDnsResolutionFailure = dnsErrors.map { $0.address }
                     .joined(separator: ", ")
-                //wg_log(.error, message: "DNS resolution failed for the following hostnames: \(hostnamesWithDnsResolutionFailure)")
+                wg_log(.error, message: "DNS resolution failed for the following hostnames: \(hostnamesWithDnsResolutionFailure)")
                 errorNotifier.notify(PacketTunnelProviderError.dnsResolutionFailure)
                 completionHandler(PacketTunnelProviderError.dnsResolutionFailure)
 
             case .setNetworkSettings(let error):
-                //wg_log(.error, message: "Starting tunnel failed with setTunnelNetworkSettings returning \(error.localizedDescription)")
+                wg_log(.error, message: "Starting tunnel failed with setTunnelNetworkSettings returning \(error.localizedDescription)")
                 errorNotifier.notify(PacketTunnelProviderError.couldNotSetNetworkSettings)
                 completionHandler(PacketTunnelProviderError.couldNotSetNetworkSettings)
 
             case .startWireGuardBackend(let errorCode):
-                //wg_log(.error, message: "Starting tunnel failed with wgTurnOn returning \(errorCode)")
+                wg_log(.error, message: "Starting tunnel failed with wgTurnOn returning \(errorCode)")
                 errorNotifier.notify(PacketTunnelProviderError.couldNotStartBackend)
                 completionHandler(PacketTunnelProviderError.couldNotStartBackend)
 
@@ -73,13 +73,13 @@ open class PacketTunnelProvider: NEPacketTunnelProvider {
     }
 
     public override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
-        //wg_log(.info, staticMessage: "Stopping tunnel")
+        wg_log(.info, staticMessage: "Stopping tunnel")
 
         adapter.stop { error in
             ErrorNotifier.removeLastErrorFile()
 
             if let error = error {
-                //wg_log(.error, message: "Failed to stop WireGuard adapter: \(error.localizedDescription)")
+                wg_log(.error, message: "Failed to stop WireGuard adapter: \(error.localizedDescription)")
             }
             completionHandler()
 

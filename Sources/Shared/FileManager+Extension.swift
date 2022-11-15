@@ -21,7 +21,7 @@ public extension FileManager {
             return nil
         }
         guard let sharedFolderURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupId) else {
-            //wg_log(.error, message: "Cannot obtain shared folder URL")
+            wg_log(.error, message: "Cannot obtain shared folder URL")
             return nil
         }
         return sharedFolderURL

@@ -74,7 +74,7 @@ public extension NETunnelProviderProtocol {
             #error("Unimplemented")
             #endif
             guard passwordReference == nil else { return true }
-            //wg_log(.info, message: "Migrating tunnel configuration '\(name)'")
+            wg_log(.info, message: "Migrating tunnel configuration '\(name)'")
             passwordReference = Keychain.makeReference(containing: oldConfig, called: name)
             return true
         }
@@ -98,7 +98,7 @@ public extension NETunnelProviderProtocol {
                 }
                 guard let newReference = result as? Data else { return false }
                 if !newReference.elementsEqual(passwordReference!) {
-                    //wg_log(.info, message: "Migrating iOS 14-style keychain reference to iOS 15-style keychain reference for '\(name)'")
+                    wg_log(.info, message: "Migrating iOS 14-style keychain reference to iOS 15-style keychain reference for '\(name)'")
                     passwordReference = newReference
                     return true
                 }
