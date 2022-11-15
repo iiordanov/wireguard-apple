@@ -4,6 +4,7 @@
 import NetworkExtension
 import WireGuardKit
 import WireGuardShared
+import WireGuardSharedLogging
 
 public enum PacketTunnelProviderError: String, Error {
     case savedProtocolConfigurationIsInvalid
