@@ -3,6 +3,7 @@
 
 import Foundation
 import WireGuardShared
+import WireGuardSharedLogging
 
 class RecentTunnelsTracker {
 
