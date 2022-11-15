@@ -8,7 +8,7 @@ import WireGuardSharedLogging
 public extension FileManager {
     public static var appGroupId: String? {
         #if os(iOS)
-        let appGroupIdInfoDictionaryKey = "com.morpheusly.uiFlutter"
+        let appGroupIdInfoDictionaryKey = "com.wireguard.ios.app_group_id"
         #elseif os(macOS)
         let appGroupIdInfoDictionaryKey = "com.wireguard.macos.app_group_id"
         #else
