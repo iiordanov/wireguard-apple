@@ -53,7 +53,8 @@ let package = Package(
             path: "Sources/Shared",
             exclude: [
                 "Logging",
-                "Model"
+                "Model",
+                "FileManager+Extension.swift"
             ],
             publicHeadersPath: "."
         ),
