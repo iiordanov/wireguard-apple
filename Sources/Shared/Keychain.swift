@@ -72,6 +72,10 @@ public class Keychain {
         #endif
 
         var ref: CFTypeRef?
+        ret = SecItemDelete(items as CFDictionary)
+        if ret != errSecSuccess {
+            wg_log(.info, message: "Could not delete an existing config from keychain: \(ret)")
+        }
         ret = SecItemAdd(items as CFDictionary, &ref)
         if ret != errSecSuccess || ref == nil {
             wg_log(.error, message: "Unable to add config to keychain: \(ret)")
