@@ -12,7 +12,8 @@ public class Keychain {
                                         kSecReturnData: true] as CFDictionary,
                                        &result)
         if ret != errSecSuccess || result == nil {
-            wg_log(.error, message: "Unable to open config from keychain: \(ret)")
+            let errorDescription = SecCopyErrorMessageString(result, nil)
+            wg_log(.error, message: "Unable to open config from keychain: \(ret), description: \(errorDescription)")
             return nil
         }
         guard let data = result as? Data else { return nil }
