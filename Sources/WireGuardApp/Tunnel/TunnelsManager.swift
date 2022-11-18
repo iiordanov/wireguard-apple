@@ -88,7 +88,7 @@ public class TunnelsManager {
         #endif
     }
 
-    func reload() {
+    public func reload() {
         NETunnelProviderManager.loadAllFromPreferences { [weak self] managers, _ in
             guard let self = self else { return }
 
@@ -549,7 +549,7 @@ public class TunnelsManager {
         }
     }
 
-    static func tunnelNameIsLessThan(_ lhs: String, _ rhs: String) -> Bool {
+    public static func tunnelNameIsLessThan(_ lhs: String, _ rhs: String) -> Bool {
         return lhs.compare(rhs, options: [.caseInsensitive, .diacriticInsensitive, .widthInsensitive, .numeric]) == .orderedAscending
     }
 }
