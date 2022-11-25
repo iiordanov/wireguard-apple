@@ -14,8 +14,8 @@ public class LogViewHelper {
     ]
 
     public struct LogEntry {
-        let timestamp: String
-        let message: String
+        public let timestamp: String
+        public let message: String
 
         func text() -> String {
             return timestamp + " " + message
