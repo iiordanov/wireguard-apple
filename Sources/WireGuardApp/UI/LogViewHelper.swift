@@ -26,7 +26,7 @@ public class LogViewHelper {
         var entries: [LogEntry] = []
     }
 
-    init?(logFilePath: String?) {
+    public init?(logFilePath: String?) {
         guard let logFilePath = logFilePath else { return nil }
         guard let log = open_log(logFilePath) else { return nil }
         self.log = log
