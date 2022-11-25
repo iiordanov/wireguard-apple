@@ -13,7 +13,7 @@ public class LogViewHelper {
         .withFractionalSeconds
     ]
 
-    struct LogEntry {
+    public struct LogEntry {
         let timestamp: String
         let message: String
 
