@@ -36,7 +36,7 @@ public class LogViewHelper {
         close_log(self.log)
     }
 
-    func fetchLogEntriesSinceLastFetch(completion: @escaping ([LogViewHelper.LogEntry]) -> Void) {
+    public func fetchLogEntriesSinceLastFetch(completion: @escaping ([LogViewHelper.LogEntry]) -> Void) {
         var logEntries = LogEntries()
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
