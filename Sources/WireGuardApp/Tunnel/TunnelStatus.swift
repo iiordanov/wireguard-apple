@@ -4,7 +4,7 @@
 import Foundation
 import NetworkExtension
 
-@objc enum TunnelStatus: Int {
+@objc public enum TunnelStatus: Int {
     case inactive
     case activating
     case active
