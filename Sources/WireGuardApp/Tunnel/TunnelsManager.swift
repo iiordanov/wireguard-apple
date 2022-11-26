@@ -569,7 +569,7 @@ private func lastErrorTextFromNetworkExtension(for tunnel: TunnelContainer) -> (
 
 public class TunnelContainer: NSObject {
     @objc dynamic var name: String
-    @objc dynamic var status: TunnelStatus
+    @objc public dynamic var status: TunnelStatus
 
     @objc dynamic var isActivateOnDemandEnabled: Bool
     @objc dynamic var hasOnDemandRules: Bool
