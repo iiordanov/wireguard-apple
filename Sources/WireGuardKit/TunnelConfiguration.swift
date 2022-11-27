@@ -16,7 +16,7 @@ public final class TunnelConfiguration {
         let peerPublicKeysArray = peers.map { $0.publicKey }
         let peerPublicKeysSet = Set<PublicKey>(peerPublicKeysArray)
         if peerPublicKeysArray.count != peerPublicKeysSet.count {
-            fatalError("Two or more peers cannot have the same public key")
+            fatalError("Two or more peers cannot have the same public key. Array: \(peerPublicKeysArray) vs set: \(peerPublicKeysSet)")
         }
     }
 }
