@@ -6,7 +6,7 @@ import NetworkExtension
 import WireGuardKit
 #endif
 
-public enum PacketTunnelProviderError: String, Error {
+enum PacketTunnelProviderError: String, Error {
     case savedProtocolConfigurationIsInvalid
     case dnsResolutionFailure
     case couldNotStartBackend
@@ -14,7 +14,7 @@ public enum PacketTunnelProviderError: String, Error {
     case couldNotSetNetworkSettings
 }
 
-public extension NETunnelProviderProtocol {
+extension NETunnelProviderProtocol {
     convenience init?(tunnelConfiguration: TunnelConfiguration, previouslyFrom old: NEVPNProtocol? = nil) {
         self.init()
 
@@ -39,7 +39,7 @@ public extension NETunnelProviderProtocol {
         }
     }
 
-    public func asTunnelConfiguration(called name: String? = nil) -> TunnelConfiguration? {
+    func asTunnelConfiguration(called name: String? = nil) -> TunnelConfiguration? {
         if let passwordReference = passwordReference,
             let config = Keychain.openReference(called: passwordReference) {
             return try? TunnelConfiguration(fromWgQuickConfig: config, called: name)
@@ -50,18 +50,18 @@ public extension NETunnelProviderProtocol {
         return nil
     }
 
-    public func destroyConfigurationReference() {
+    func destroyConfigurationReference() {
         guard let ref = passwordReference else { return }
         Keychain.deleteReference(called: ref)
     }
 
-    public func verifyConfigurationReference() -> Bool {
+    func verifyConfigurationReference() -> Bool {
         guard let ref = passwordReference else { return false }
         return Keychain.verifyReference(called: ref)
     }
 
     @discardableResult
-    public func migrateConfigurationIfNeeded(called name: String) -> Bool {
+    func migrateConfigurationIfNeeded(called name: String) -> Bool {
         /* This is how we did things before we switched to putting items
          * in the keychain. But it's still useful to keep the migration
          * around so that .mobileconfig files are easier.
