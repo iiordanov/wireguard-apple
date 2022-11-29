@@ -4,6 +4,9 @@
 import Foundation
 import NetworkExtension
 import os
+#if SWIFT_PACKAGE
+import WireGuardKit
+#endif
 
 open class PacketTunnelProvider: NEPacketTunnelProvider {
 
