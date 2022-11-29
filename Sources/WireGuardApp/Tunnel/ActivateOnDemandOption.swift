@@ -18,7 +18,7 @@ private let nonWiFiInterfaceType: NEOnDemandRuleInterfaceType = .ethernet
 #error("Unimplemented")
 #endif
 
-enum ActivateOnDemandSSIDOption: Equatable {
+public enum ActivateOnDemandSSIDOption: Equatable {
     case anySSID
     case onlySpecificSSIDs([String])
     case exceptSpecificSSIDs([String])
