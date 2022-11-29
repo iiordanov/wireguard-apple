@@ -2,8 +2,9 @@
 // Copyright © 2018-2021 WireGuard LLC. All Rights Reserved.
 
 import Foundation
+#if SWIFT_PACKAGE
 import WireGuardKit
-import WireGuardSharedModel
+#endif
 
 extension TunnelConfiguration {
     convenience init(fromUapiConfig uapiConfig: String, basedOn base: TunnelConfiguration? = nil) throws {
