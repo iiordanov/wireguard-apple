@@ -5,7 +5,7 @@ import Foundation
 import Security
 
 class Keychain {
-   static func openReference(called ref: Data) -> String? {
+    static func openReference(called ref: Data) -> String? {
         var result: CFTypeRef?
         let ret = SecItemCopyMatching([kSecValuePersistentRef: ref,
                                         kSecReturnData: true] as CFDictionary,
@@ -19,7 +19,7 @@ class Keychain {
         return String(data: data, encoding: String.Encoding.utf8)
     }
 
-   static func makeReference(containing value: String, called name: String, previouslyReferencedBy oldRef: Data? = nil) -> Data? {
+    static func makeReference(containing value: String, called name: String, previouslyReferencedBy oldRef: Data? = nil) -> Data? {
         var ret: OSStatus
         guard var bundleIdentifier = Bundle.main.bundleIdentifier else {
             wg_log(.error, staticMessage: "Unable to determine bundle identifier")
@@ -83,14 +83,14 @@ class Keychain {
         return ref as? Data
     }
 
-   static func deleteReference(called ref: Data) {
+    static func deleteReference(called ref: Data) {
         let ret = SecItemDelete([kSecValuePersistentRef: ref] as CFDictionary)
         if ret != errSecSuccess {
             wg_log(.error, message: "Unable to delete config from keychain: \(ret)")
         }
     }
 
-   static func deleteReferences(except whitelist: Set<Data>) {
+    static func deleteReferences(except whitelist: Set<Data>) {
         var result: CFTypeRef?
         let ret = SecItemCopyMatching([kSecClass: kSecClassGenericPassword,
                                        kSecAttrService: Bundle.main.bundleIdentifier as Any,
@@ -108,7 +108,7 @@ class Keychain {
         }
     }
 
-   static func verifyReference(called ref: Data) -> Bool {
+    static func verifyReference(called ref: Data) -> Bool {
         return SecItemCopyMatching([kSecValuePersistentRef: ref] as CFDictionary,
                                    nil) != errSecItemNotFound
     }

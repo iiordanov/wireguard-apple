@@ -9,7 +9,7 @@ import Foundation
 /// Wraps the observer token received from
 /// `NotificationCenter.addObserver(forName:object:queue:using:)`
 /// and unregisters it in deinit.
-public final class NotificationToken {
+final class NotificationToken {
     let notificationCenter: NotificationCenter
     let token: Any
 
@@ -23,7 +23,7 @@ public final class NotificationToken {
     }
 }
 
-public extension NotificationCenter {
+extension NotificationCenter {
     /// Convenience wrapper for addObserver(forName:object:queue:using:)
     /// that returns our custom `NotificationToken`.
     func observe(name: NSNotification.Name?, object obj: Any?, queue: OperationQueue?, using block: @escaping (Notification) -> Void) -> NotificationToken {
