@@ -2,7 +2,6 @@
 // Copyright © 2018-2021 WireGuard LLC. All Rights Reserved.
 
 import Foundation
-import WireGuardSharedLoggingC
 
 public class LogViewHelper {
     var log: OpaquePointer

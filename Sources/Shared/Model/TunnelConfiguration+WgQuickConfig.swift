@@ -2,17 +2,16 @@
 // Copyright © 2018-2021 WireGuard LLC. All Rights Reserved.
 
 import Foundation
-import WireGuardKit
 
 public extension TunnelConfiguration {
 
-    enum ParserState {
+    public enum ParserState {
         case inInterfaceSection
         case inPeerSection
         case notInASection
     }
 
-    enum ParseError: Error {
+    public enum ParseError: Error {
         case invalidLine(String.SubSequence)
         case noInterface
         case multipleInterfaces

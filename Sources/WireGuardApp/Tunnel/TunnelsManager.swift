@@ -1,13 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright © 2018-2021 WireGuard LLC. All Rights Reserved.
 
-import WireGuardShared
-import WireGuardSharedModel
-import WireGuardKit
 import Foundation
 import NetworkExtension
 import os.log
-import WireGuardSharedLogging
 
 public protocol TunnelsManagerListDelegate: AnyObject {
     func tunnelAdded(at index: Int)

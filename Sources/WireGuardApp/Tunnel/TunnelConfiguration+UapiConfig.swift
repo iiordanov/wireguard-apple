@@ -6,7 +6,7 @@ import Foundation
 import WireGuardKit
 #endif
 
-extension TunnelConfiguration {
+public extension TunnelConfiguration {
     convenience init(fromUapiConfig uapiConfig: String, basedOn base: TunnelConfiguration? = nil) throws {
         var interfaceConfiguration: InterfaceConfiguration?
         var peerConfigurations = [PeerConfiguration]()

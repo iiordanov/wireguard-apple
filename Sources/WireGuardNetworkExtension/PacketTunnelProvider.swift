@@ -4,9 +4,6 @@
 import Foundation
 import NetworkExtension
 import os
-import WireGuardKit
-import WireGuardSharedLogging
-import WireGuardSharedModel
 
 open class PacketTunnelProvider: NEPacketTunnelProvider {
 

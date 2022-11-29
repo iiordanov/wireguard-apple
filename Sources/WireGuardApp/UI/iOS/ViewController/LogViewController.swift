@@ -2,7 +2,6 @@
 // Copyright © 2018-2021 WireGuard LLC. All Rights Reserved.
 
 import UIKit
-import WireGuardSharedLogging
 
 class LogViewController: UIViewController {
 

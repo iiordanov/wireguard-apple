@@ -2,8 +2,6 @@
 // Copyright © 2018-2021 WireGuard LLC. All Rights Reserved.
 
 import NetworkExtension
-import WireGuardShared
-import WireGuardSharedLogging
 
 public enum ActivateOnDemandOption: Equatable {
     case off
