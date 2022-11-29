@@ -11,7 +11,7 @@ let package = Package(
         .iOS(.v12)
     ],
     products: [
-        .library(name: "WireGuardKit", targets: ["WireGuardKit", "WireGuardSharedLogging", "WireGuardSharedLoggingC", "WireGuardSharedModel", "WireGuardShared", "WireGuardNetworkExtension", "WireGuardApp"])
+        .library(name: "WireGuardKit", targets: ["WireGuardKit", "WireGuardSharedLoggingC", "WireGuardApp"])
     ],
     dependencies: [],
     targets: [
@@ -19,43 +19,6 @@ let package = Package(
             name: "WireGuardKit",
             dependencies: ["WireGuardKitC", "WireGuardKitGo"],
             path: "Sources/WireGuardKit"
-        ),
-        .target(
-            name: "WireGuardSharedLoggingC",
-            dependencies: [],
-            path: "Sources/Shared/Logging",
-            exclude: [
-                "Logger.swift",
-                "test_ringlogger.c"
-            ],
-            publicHeadersPath: "."
-        ),
-        .target(
-            name: "WireGuardSharedLogging",
-            dependencies: ["WireGuardSharedLoggingC"],
-            path: "Sources/Shared/Logging",
-            exclude: [
-                "ringlogger.c",
-                "ringlogger.h",
-                "test_ringlogger.c"
-            ],
-            publicHeadersPath: "."
-        ),
-        .target(
-            name: "WireGuardSharedModel",
-            dependencies: ["WireGuardShared", "WireGuardKit", "WireGuardSharedLogging"],
-            path: "Sources/Shared/Model",
-            publicHeadersPath: "."
-        ),
-        .target(
-            name: "WireGuardShared",
-            dependencies: ["WireGuardKit", "WireGuardSharedLogging"],
-            path: "Sources/Shared",
-            exclude: [
-                "Logging",
-                "Model"
-            ],
-            publicHeadersPath: "."
         ),
         .target(
             name: "WireGuardKitC",
@@ -76,47 +39,55 @@ let package = Package(
             linkerSettings: [.linkedLibrary("wg-go")]
         ),
         .target(
-            name: "WireGuardNetworkExtension",
-            dependencies: ["WireGuardShared", "WireGuardSharedModel", "WireGuardSharedLogging"],
+            name: "WireGuardSharedLoggingC",
+            dependencies: [],
+            path: "Sources/Shared/Logging",
+            exclude: [
+                "Logger.swift",
+                "test_ringlogger.c"
+            ],
             publicHeadersPath: "."
         ),
         .target(
             name: "WireGuardApp",
-            dependencies: ["WireGuardKit", "WireGuardShared", "WireGuardSharedModel"],
-            path: "Sources/WireGuardApp",
+            dependencies: ["WireGuardKit", "WireGuardSharedLoggingC"],
+            path: "Sources",
             exclude: [
-                "Base.lproj",
-                "Config",
-                "Resources",
-                "UI/macOS",
-                "UI/ActivateOnDemandViewModel.swift",
-                "UI/TunnelViewModel.swift",
-                "UI/TunnelImporter.swift",
-                "UI/iOS/AppDelegate.swift",
-                "UI/iOS/Assets.xcassets",
-                "UI/iOS/Base.lproj",
-                "UI/iOS/View",
-                "UI/iOS/ViewController",
-                "WireGuard-Bridging-Header.h",
-                "ZipArchive",
-                "ca.lproj",
-                "de.lproj",
-                "fa.lproj",
-                "fi.lproj",
-                "fr.lproj",
-                "es.lproj",
-                "id.lproj",
-                "it.lproj",
-                "ja.lproj",
-                "ko.lproj",
-                "pa.lproj",
-                "pl.lproj",
-                "ro.lproj",
-                "ru.lproj",
-                "sl.lproj",
-                "tr.lproj",
-                "zh-Hans.lproj",
-                "zh-Hant.lproj"
+                "Shared/Logging/ringlogger.c",
+                "Shared/Logging/ringlogger.h",
+                "Shared/Logging/test_ringlogger.c",
+                "WireGuardApp/Base.lproj",
+                "WireGuardApp/Config",
+                "WireGuardApp/Resources",
+                "WireGuardApp/UI/macOS",
+                "WireGuardApp/UI/ActivateOnDemandViewModel.swift",
+                "WireGuardApp/UI/TunnelViewModel.swift",
+                "WireGuardApp/UI/TunnelImporter.swift",
+                "WireGuardApp/UI/iOS/AppDelegate.swift",
+                "WireGuardApp/UI/iOS/Assets.xcassets",
+                "WireGuardApp/UI/iOS/Base.lproj",
+                "WireGuardApp/UI/iOS/View",
+                "WireGuardApp/UI/iOS/ViewController",
+                "WireGuardApp/WireGuard-Bridging-Header.h",
+                "WireGuardApp/ZipArchive",
+                "WireGuardApp/ca.lproj",
+                "WireGuardApp/de.lproj",
+                "WireGuardApp/fa.lproj",
+                "WireGuardApp/fi.lproj",
+                "WireGuardApp/fr.lproj",
+                "WireGuardApp/es.lproj",
+                "WireGuardApp/id.lproj",
+                "WireGuardApp/it.lproj",
+                "WireGuardApp/ja.lproj",
+                "WireGuardApp/ko.lproj",
+                "WireGuardApp/pa.lproj",
+                "WireGuardApp/pl.lproj",
+                "WireGuardApp/ro.lproj",
+                "WireGuardApp/ru.lproj",
+                "WireGuardApp/sl.lproj",
+                "WireGuardApp/tr.lproj",
+                "WireGuardApp/zh-Hans.lproj",
+                "WireGuardApp/zh-Hant.lproj"
             ],
             publicHeadersPath: "."
         )
