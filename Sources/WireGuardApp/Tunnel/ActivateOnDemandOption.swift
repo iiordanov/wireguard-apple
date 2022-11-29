@@ -24,7 +24,7 @@ enum ActivateOnDemandSSIDOption: Equatable {
     case exceptSpecificSSIDs([String])
 }
 
-extension ActivateOnDemandOption {
+public extension ActivateOnDemandOption {
     func apply(on tunnelProviderManager: NETunnelProviderManager) {
         let rules: [NEOnDemandRule]?
         switch self {
