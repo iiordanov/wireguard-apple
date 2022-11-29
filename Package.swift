@@ -1,4 +1,3 @@
-
 // swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
@@ -17,8 +16,7 @@ let package = Package(
     targets: [
         .target(
             name: "WireGuardKit",
-            dependencies: ["WireGuardKitC", "WireGuardKitGo"],
-            path: "Sources/WireGuardKit"
+            dependencies: ["WireGuardKitGo", "WireGuardKitC"]
         ),
         .target(
             name: "WireGuardKitC",
