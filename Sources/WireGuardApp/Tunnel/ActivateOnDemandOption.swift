@@ -3,7 +3,7 @@
 
 import NetworkExtension
 
-enum ActivateOnDemandOption: Equatable {
+public enum ActivateOnDemandOption: Equatable {
     case off
     case wiFiInterfaceOnly(ActivateOnDemandSSIDOption)
     case nonWiFiInterfaceOnly
