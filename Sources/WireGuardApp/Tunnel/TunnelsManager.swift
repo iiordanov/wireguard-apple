@@ -4,6 +4,9 @@
 import Foundation
 import NetworkExtension
 import os.log
+#if SWIFT_PACKAGE
+import WireGuardKit
+#endif
 
 public protocol TunnelsManagerListDelegate: AnyObject {
     func tunnelAdded(at index: Int)
