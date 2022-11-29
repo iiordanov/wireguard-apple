@@ -10,7 +10,7 @@ public class Logger {
         case openFailure
     }
 
-    public static var global: Logger?
+    static var global: Logger?
 
     var log: OpaquePointer
     var tag: String
@@ -33,7 +33,7 @@ public class Logger {
         return write_log_to_file(targetFile, self.log) == 0
     }
 
-    public static func configureGlobal(tagged tag: String, withFilePath filePath: String?) {
+    static func configureGlobal(tagged tag: String, withFilePath filePath: String?) {
         if Logger.global != nil {
             return
         }
@@ -55,12 +55,12 @@ public class Logger {
     }
 }
 
-public func wg_log(_ type: OSLogType, staticMessage msg: StaticString) {
+func wg_log(_ type: OSLogType, staticMessage msg: StaticString) {
     os_log(msg, log: OSLog.default, type: type)
     Logger.global?.log(message: "\(msg)")
 }
 
-public func wg_log(_ type: OSLogType, message msg: String) {
+func wg_log(_ type: OSLogType, message msg: String) {
     os_log("%{public}s", log: OSLog.default, type: type, msg)
     Logger.global?.log(message: msg)
 }
