@@ -2,6 +2,9 @@
 // Copyright © 2018-2021 WireGuard LLC. All Rights Reserved.
 
 import Foundation
+#if SWIFT_PACKAGE
+import WireGuardSharedLoggingC
+#endif
 
 public class LogViewHelper {
     var log: OpaquePointer
