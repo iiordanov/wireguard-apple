@@ -3,7 +3,7 @@
 
 import NetworkExtension
 #if SWIFT_PACKAGE
-import WireGuardApp
+import WireGuardKit
 #endif
 
 public enum PacketTunnelProviderError: String, Error {
