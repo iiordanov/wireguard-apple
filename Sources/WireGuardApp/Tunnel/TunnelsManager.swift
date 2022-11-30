@@ -4,25 +4,28 @@
 import Foundation
 import NetworkExtension
 import os.log
+#if SWIFT_PACKAGE
+import WireGuardKit
+#endif
 
-protocol TunnelsManagerListDelegate: AnyObject {
+public protocol TunnelsManagerListDelegate: AnyObject {
     func tunnelAdded(at index: Int)
     func tunnelModified(at index: Int)
     func tunnelMoved(from oldIndex: Int, to newIndex: Int)
     func tunnelRemoved(at index: Int, tunnel: TunnelContainer)
 }
 
-protocol TunnelsManagerActivationDelegate: AnyObject {
+public protocol TunnelsManagerActivationDelegate: AnyObject {
     func tunnelActivationAttemptFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationAttemptError) // startTunnel wasn't called or failed
     func tunnelActivationAttemptSucceeded(tunnel: TunnelContainer) // startTunnel succeeded
     func tunnelActivationFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationError) // status didn't change to connected
     func tunnelActivationSucceeded(tunnel: TunnelContainer) // status changed to connected
 }
 
-class TunnelsManager {
+public class TunnelsManager {
     private var tunnels: [TunnelContainer]
     weak var tunnelsListDelegate: TunnelsManagerListDelegate?
-    weak var activationDelegate: TunnelsManagerActivationDelegate?
+    public weak var activationDelegate: TunnelsManagerActivationDelegate?
     private var statusObservationToken: NotificationToken?
     private var waiteeObservationToken: NSKeyValueObservation?
     private var configurationsObservationToken: NotificationToken?
@@ -33,7 +36,7 @@ class TunnelsManager {
         startObservingTunnelConfigurations()
     }
 
-    static func create(completionHandler: @escaping (Result<TunnelsManager, TunnelsManagerError>) -> Void) {
+    public static func create(completionHandler: @escaping (Result<TunnelsManager, TunnelsManagerError>) -> Void) {
         #if targetEnvironment(simulator)
         completionHandler(.success(TunnelsManager(tunnelProviders: MockTunnels.createMockTunnels())))
         #else
@@ -84,7 +87,7 @@ class TunnelsManager {
         #endif
     }
 
-    func reload() {
+    public func reload() {
         NETunnelProviderManager.loadAllFromPreferences { [weak self] managers, _ in
             guard let self = self else { return }
 
@@ -117,7 +120,7 @@ class TunnelsManager {
         }
     }
 
-    func add(tunnelConfiguration: TunnelConfiguration, onDemandOption: ActivateOnDemandOption = .off, completionHandler: @escaping (Result<TunnelContainer, TunnelsManagerError>) -> Void) {
+    public func add(tunnelConfiguration: TunnelConfiguration, onDemandOption: ActivateOnDemandOption = .off, completionHandler: @escaping (Result<TunnelContainer, TunnelsManagerError>) -> Void) {
         let tunnelName = tunnelConfiguration.name ?? ""
         if tunnelName.isEmpty {
             completionHandler(.failure(TunnelsManagerError.tunnelNameEmpty))
@@ -168,7 +171,7 @@ class TunnelsManager {
         }
     }
 
-    func addMultiple(tunnelConfigurations: [TunnelConfiguration], completionHandler: @escaping (UInt, TunnelsManagerError?) -> Void) {
+    public func addMultiple(tunnelConfigurations: [TunnelConfiguration], completionHandler: @escaping (UInt, TunnelsManagerError?) -> Void) {
         // Temporarily pause observation of changes to VPN configurations to prevent the feedback
         // loop that causes `reload()` to be called on each newly added tunnel, which significantly
         // impacts performance.
@@ -206,7 +209,7 @@ class TunnelsManager {
         }
     }
 
-    func modify(tunnel: TunnelContainer, tunnelConfiguration: TunnelConfiguration,
+    public func modify(tunnel: TunnelContainer, tunnelConfiguration: TunnelConfiguration,
                 onDemandOption: ActivateOnDemandOption,
                 shouldEnsureOnDemandEnabled: Bool = false,
                 completionHandler: @escaping (TunnelsManagerError?) -> Void) {
@@ -299,7 +302,7 @@ class TunnelsManager {
         }
     }
 
-    func remove(tunnel: TunnelContainer, completionHandler: @escaping (TunnelsManagerError?) -> Void) {
+    public func remove(tunnel: TunnelContainer, completionHandler: @escaping (TunnelsManagerError?) -> Void) {
         let tunnelProviderManager = tunnel.tunnelProvider
         #if os(macOS)
         if tunnel.isTunnelAvailableToUser {
@@ -328,7 +331,7 @@ class TunnelsManager {
         }
     }
 
-    func removeMultiple(tunnels: [TunnelContainer], completionHandler: @escaping (TunnelsManagerError?) -> Void) {
+    public func removeMultiple(tunnels: [TunnelContainer], completionHandler: @escaping (TunnelsManagerError?) -> Void) {
         // Temporarily pause observation of changes to VPN configurations to prevent the feedback
         // loop that causes `reload()` to be called for each removed tunnel, which significantly
         // impacts performance.
@@ -362,7 +365,7 @@ class TunnelsManager {
         }
     }
 
-    func setOnDemandEnabled(_ isOnDemandEnabled: Bool, on tunnel: TunnelContainer, completionHandler: @escaping (TunnelsManagerError?) -> Void) {
+    public func setOnDemandEnabled(_ isOnDemandEnabled: Bool, on tunnel: TunnelContainer, completionHandler: @escaping (TunnelsManagerError?) -> Void) {
         let tunnelProviderManager = tunnel.tunnelProvider
         let isCurrentlyEnabled = (tunnelProviderManager.isOnDemandEnabled && tunnelProviderManager.isEnabled)
         guard isCurrentlyEnabled != isOnDemandEnabled else {
@@ -397,38 +400,38 @@ class TunnelsManager {
         }
     }
 
-    func numberOfTunnels() -> Int {
+    public func numberOfTunnels() -> Int {
         return tunnels.count
     }
 
-    func tunnel(at index: Int) -> TunnelContainer {
+    public func tunnel(at index: Int) -> TunnelContainer {
         return tunnels[index]
     }
 
-    func mapTunnels<T>(transform: (TunnelContainer) throws -> T) rethrows -> [T] {
+    public func mapTunnels<T>(transform: (TunnelContainer) throws -> T) rethrows -> [T] {
         return try tunnels.map(transform)
     }
 
-    func index(of tunnel: TunnelContainer) -> Int? {
+    public func index(of tunnel: TunnelContainer) -> Int? {
         return tunnels.firstIndex(of: tunnel)
     }
 
-    func tunnel(named tunnelName: String) -> TunnelContainer? {
+    public func tunnel(named tunnelName: String) -> TunnelContainer? {
         return tunnels.first { $0.name == tunnelName }
     }
 
-    func waitingTunnel() -> TunnelContainer? {
+    public func waitingTunnel() -> TunnelContainer? {
         return tunnels.first { $0.status == .waiting }
     }
 
-    func tunnelInOperation() -> TunnelContainer? {
+    public func tunnelInOperation() -> TunnelContainer? {
         if let waitingTunnelObject = waitingTunnel() {
             return waitingTunnelObject
         }
         return tunnels.first { $0.status != .inactive }
     }
 
-    func startActivation(of tunnel: TunnelContainer) {
+    public func startActivation(of tunnel: TunnelContainer) {
         guard tunnels.contains(tunnel) else { return } // Ensure it's not deleted
         guard tunnel.status == .inactive else {
             activationDelegate?.tunnelActivationAttemptFailed(tunnel: tunnel, error: .tunnelIsNotInactive)
@@ -470,7 +473,7 @@ class TunnelsManager {
         #endif
     }
 
-    func startDeactivation(of tunnel: TunnelContainer) {
+    public func startDeactivation(of tunnel: TunnelContainer) {
         tunnel.isAttemptingActivation = false
         guard tunnel.status != .inactive && tunnel.status != .deactivating else { return }
         #if targetEnvironment(simulator)
@@ -480,7 +483,7 @@ class TunnelsManager {
         #endif
     }
 
-    func refreshStatuses() {
+    public func refreshStatuses() {
         tunnels.forEach { $0.refreshStatus() }
     }
 
@@ -533,7 +536,7 @@ class TunnelsManager {
         }
     }
 
-    func startObservingTunnelConfigurations() {
+    public func startObservingTunnelConfigurations() {
         configurationsObservationToken = NotificationCenter.default.observe(name: .NEVPNConfigurationChange, object: nil, queue: OperationQueue.main) { [weak self] _ in
             DispatchQueue.main.async { [weak self] in
                 // We schedule reload() in a subsequent runloop to ensure that the completion handler of loadAllFromPreferences
@@ -545,7 +548,7 @@ class TunnelsManager {
         }
     }
 
-    static func tunnelNameIsLessThan(_ lhs: String, _ rhs: String) -> Bool {
+    public static func tunnelNameIsLessThan(_ lhs: String, _ rhs: String) -> Bool {
         return lhs.compare(rhs, options: [.caseInsensitive, .diacriticInsensitive, .widthInsensitive, .numeric]) == .orderedAscending
     }
 }
@@ -563,9 +566,9 @@ private func lastErrorTextFromNetworkExtension(for tunnel: TunnelContainer) -> (
     return (tr("alertTunnelActivationFailureTitle"), tr("alertTunnelActivationFailureMessage"))
 }
 
-class TunnelContainer: NSObject {
+public class TunnelContainer: NSObject {
     @objc dynamic var name: String
-    @objc dynamic var status: TunnelStatus
+    @objc public dynamic var status: TunnelStatus
 
     @objc dynamic var isActivateOnDemandEnabled: Bool
     @objc dynamic var hasOnDemandRules: Bool
@@ -627,7 +630,7 @@ class TunnelContainer: NSObject {
         super.init()
     }
 
-    func getRuntimeTunnelConfiguration(completionHandler: @escaping ((TunnelConfiguration?) -> Void)) {
+    public func getRuntimeTunnelConfiguration(completionHandler: @escaping ((TunnelConfiguration?) -> Void)) {
         guard status != .inactive, let session = tunnelProvider.connection as? NETunnelProviderSession else {
             completionHandler(tunnelConfiguration)
             return
@@ -644,7 +647,7 @@ class TunnelContainer: NSObject {
         }
     }
 
-    func refreshStatus() {
+    public func refreshStatus() {
         if (status == .restarting) || (status == .waiting && tunnelProvider.connection.status == .disconnected) {
             return
         }
@@ -724,7 +727,7 @@ class TunnelContainer: NSObject {
     }
 }
 
-extension NETunnelProviderManager {
+public extension NETunnelProviderManager {
     private static var cachedConfigKey: UInt8 = 0
 
     var tunnelConfiguration: TunnelConfiguration? {
@@ -738,13 +741,13 @@ extension NETunnelProviderManager {
         return config
     }
 
-    func setTunnelConfiguration(_ tunnelConfiguration: TunnelConfiguration) {
+    public func setTunnelConfiguration(_ tunnelConfiguration: TunnelConfiguration) {
         protocolConfiguration = NETunnelProviderProtocol(tunnelConfiguration: tunnelConfiguration, previouslyFrom: protocolConfiguration)
         localizedDescription = tunnelConfiguration.name
         objc_setAssociatedObject(self, &NETunnelProviderManager.cachedConfigKey, tunnelConfiguration, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
 
-    func isEquivalentTo(_ tunnel: TunnelContainer) -> Bool {
+    public func isEquivalentTo(_ tunnel: TunnelContainer) -> Bool {
         return localizedDescription == tunnel.name && tunnelConfiguration == tunnel.tunnelConfiguration
     }
 }

@@ -2,6 +2,9 @@
 // Copyright © 2018-2023 WireGuard LLC. All Rights Reserved.
 
 import Foundation
+#if SWIFT_PACKAGE
+import WireGuardSharedLoggingC
+#endif
 
 public class LogViewHelper {
     var log: OpaquePointer
@@ -12,9 +15,9 @@ public class LogViewHelper {
         .withFractionalSeconds
     ]
 
-    struct LogEntry {
-        let timestamp: String
-        let message: String
+    public struct LogEntry {
+        public let timestamp: String
+        public let message: String
 
         func text() -> String {
             return timestamp + " " + message
@@ -25,7 +28,7 @@ public class LogViewHelper {
         var entries: [LogEntry] = []
     }
 
-    init?(logFilePath: String?) {
+    public init?(logFilePath: String?) {
         guard let logFilePath = logFilePath else { return nil }
         guard let log = open_log(logFilePath) else { return nil }
         self.log = log
@@ -35,7 +38,7 @@ public class LogViewHelper {
         close_log(self.log)
     }
 
-    func fetchLogEntriesSinceLastFetch(completion: @escaping ([LogViewHelper.LogEntry]) -> Void) {
+    public func fetchLogEntriesSinceLastFetch(completion: @escaping ([LogViewHelper.LogEntry]) -> Void) {
         var logEntries = LogEntries()
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }

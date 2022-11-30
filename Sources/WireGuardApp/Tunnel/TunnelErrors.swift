@@ -3,7 +3,7 @@
 
 import NetworkExtension
 
-enum TunnelsManagerError: WireGuardAppError {
+public enum TunnelsManagerError: WireGuardAppError {
     case tunnelNameEmpty
     case tunnelAlreadyExistsWithThatName
     case systemErrorOnListingTunnels(systemError: Error)
@@ -11,7 +11,7 @@ enum TunnelsManagerError: WireGuardAppError {
     case systemErrorOnModifyTunnel(systemError: Error)
     case systemErrorOnRemoveTunnel(systemError: Error)
 
-    var alertText: AlertText {
+    public var alertText: AlertText {
         switch self {
         case .tunnelNameEmpty:
             return (tr("alertTunnelNameEmptyTitle"), tr("alertTunnelNameEmptyMessage"))
@@ -29,14 +29,14 @@ enum TunnelsManagerError: WireGuardAppError {
     }
 }
 
-enum TunnelsManagerActivationAttemptError: WireGuardAppError {
+public enum TunnelsManagerActivationAttemptError: WireGuardAppError {
     case tunnelIsNotInactive
     case failedWhileStarting(systemError: Error) // startTunnel() throwed
     case failedWhileSaving(systemError: Error) // save config after re-enabling throwed
     case failedWhileLoading(systemError: Error) // reloading config throwed
     case failedBecauseOfTooManyErrors(lastSystemError: Error) // recursion limit reached
 
-    var alertText: AlertText {
+    public var alertText: AlertText {
         switch self {
         case .tunnelIsNotInactive:
             return (tr("alertTunnelActivationErrorTunnelIsNotInactiveTitle"), tr("alertTunnelActivationErrorTunnelIsNotInactiveMessage"))
@@ -50,11 +50,11 @@ enum TunnelsManagerActivationAttemptError: WireGuardAppError {
     }
 }
 
-enum TunnelsManagerActivationError: WireGuardAppError {
+public enum TunnelsManagerActivationError: WireGuardAppError {
     case activationFailed(wasOnDemandEnabled: Bool)
     case activationFailedWithExtensionError(title: String, message: String, wasOnDemandEnabled: Bool)
 
-    var alertText: AlertText {
+    public var alertText: AlertText {
         switch self {
         case .activationFailed:
             return (tr("alertTunnelActivationFailureTitle"), tr("alertTunnelActivationFailureMessage"))
@@ -65,7 +65,7 @@ enum TunnelsManagerActivationError: WireGuardAppError {
 }
 
 extension PacketTunnelProviderError: WireGuardAppError {
-    var alertText: AlertText {
+    public var alertText: AlertText {
         switch self {
         case .savedProtocolConfigurationIsInvalid:
             return (tr("alertTunnelActivationFailureTitle"), tr("alertTunnelActivationSavedConfigFailureMessage"))
@@ -81,7 +81,7 @@ extension PacketTunnelProviderError: WireGuardAppError {
     }
 }
 
-extension Error {
+public extension Error {
     var localizedUIString: String {
         if let systemError = self as? NEVPNError {
             switch systemError {

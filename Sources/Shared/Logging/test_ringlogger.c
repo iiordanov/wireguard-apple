@@ -40,13 +40,17 @@ static void show_line(const char *line, uint64_t time_ns)
 	printf("%" PRIu64 ": %s\n", time_ns, line);
 }
 
+static void cb(const char *a, uint64_t b, void *c) {
+
+}
+
 static void follow(void)
 {
 	uint32_t cursor = -1;
 	struct log *log = open_log("/tmp/test_log");
 
 	for (;;) {
-		cursor = view_lines_from_cursor(log, cursor, show_line);
+		cursor = view_lines_from_cursor(log, cursor, show_line, cb);
 		usleep(1000 * 300);
 	}
 }

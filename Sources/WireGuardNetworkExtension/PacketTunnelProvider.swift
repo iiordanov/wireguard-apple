@@ -4,16 +4,21 @@
 import Foundation
 import NetworkExtension
 import os
+#if SWIFT_PACKAGE
+import WireGuardKit
+import WireGuardKitGo
+import WireGuardKitC
+#endif
 
-class PacketTunnelProvider: NEPacketTunnelProvider {
+open class PacketTunnelProvider: NEPacketTunnelProvider {
 
-    private lazy var adapter: WireGuardAdapter = {
+    public lazy var adapter: WireGuardAdapter = {
         return WireGuardAdapter(with: self) { logLevel, message in
             wg_log(logLevel.osLogLevel, message: message)
         }
     }()
 
-    override func startTunnel(options: [String: NSObject]?, completionHandler: @escaping (Error?) -> Void) {
+    open override func startTunnel(options: [String: NSObject]?, completionHandler: @escaping (Error?) -> Void) {
         let activationAttemptId = options?["activationAttemptId"] as? String
         let errorNotifier = ErrorNotifier(activationAttemptId: activationAttemptId)
 
@@ -69,7 +74,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
     }
 
-    override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
+    open override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
         wg_log(.info, staticMessage: "Stopping tunnel")
 
         adapter.stop { error in
@@ -89,7 +94,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
     }
 
-    override func handleAppMessage(_ messageData: Data, completionHandler: ((Data?) -> Void)? = nil) {
+    open override func handleAppMessage(_ messageData: Data, completionHandler: ((Data?) -> Void)? = nil) {
         guard let completionHandler = completionHandler else { return }
 
         if messageData.count == 1 && messageData[0] == 0 {

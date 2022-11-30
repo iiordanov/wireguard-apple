@@ -3,6 +3,9 @@
 
 import Foundation
 import os.log
+#if SWIFT_PACKAGE
+import WireGuardSharedLoggingC
+#endif
 
 public class Logger {
     enum LoggerError: Error {

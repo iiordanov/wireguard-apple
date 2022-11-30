@@ -2,8 +2,11 @@
 // Copyright © 2018-2023 WireGuard LLC. All Rights Reserved.
 
 import Foundation
+#if SWIFT_PACKAGE
+import WireGuardKit
+#endif
 
-extension TunnelConfiguration {
+public extension TunnelConfiguration {
     convenience init(fromUapiConfig uapiConfig: String, basedOn base: TunnelConfiguration? = nil) throws {
         var interfaceConfiguration: InterfaceConfiguration?
         var peerConfigurations = [PeerConfiguration]()

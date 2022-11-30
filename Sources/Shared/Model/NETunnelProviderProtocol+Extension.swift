@@ -2,6 +2,9 @@
 // Copyright © 2018-2023 WireGuard LLC. All Rights Reserved.
 
 import NetworkExtension
+#if SWIFT_PACKAGE
+import WireGuardKit
+#endif
 
 enum PacketTunnelProviderError: String, Error {
     case savedProtocolConfigurationIsInvalid

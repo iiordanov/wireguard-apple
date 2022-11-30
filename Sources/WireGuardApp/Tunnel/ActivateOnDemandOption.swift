@@ -3,7 +3,7 @@
 
 import NetworkExtension
 
-enum ActivateOnDemandOption: Equatable {
+public enum ActivateOnDemandOption: Equatable {
     case off
     case wiFiInterfaceOnly(ActivateOnDemandSSIDOption)
     case nonWiFiInterfaceOnly
@@ -18,13 +18,13 @@ private let nonWiFiInterfaceType: NEOnDemandRuleInterfaceType = .ethernet
 #error("Unimplemented")
 #endif
 
-enum ActivateOnDemandSSIDOption: Equatable {
+public enum ActivateOnDemandSSIDOption: Equatable {
     case anySSID
     case onlySpecificSSIDs([String])
     case exceptSpecificSSIDs([String])
 }
 
-extension ActivateOnDemandOption {
+public extension ActivateOnDemandOption {
     func apply(on tunnelProviderManager: NETunnelProviderManager) {
         let rules: [NEOnDemandRule]?
         switch self {
