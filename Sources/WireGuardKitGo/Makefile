@@ -4,15 +4,18 @@
 
 # These are generally passed to us by xcode, but we set working defaults for standalone compilation too.
 ARCHS ?= x86_64 arm64
+IPHONE_ARCHS ?= arm64
 PLATFORM_NAME ?= macosx
 SDKROOT ?= $(shell xcrun --sdk $(PLATFORM_NAME) --show-sdk-path)
 CONFIGURATION_BUILD_DIR ?= $(CURDIR)/out
+IPHONE_BUILD_DIR ?= $(CURDIR)/iphone_out
 CONFIGURATION_TEMP_DIR ?= $(CURDIR)/.tmp
 
 export PATH := $(PATH):/usr/local/bin:/opt/homebrew/bin
 export CC ?= clang
 LIPO ?= lipo
 DESTDIR ?= $(CONFIGURATION_BUILD_DIR)
+IPHONE_DESTDIR ?= $(IPHONE_BUILD_DIR)
 BUILDDIR ?= $(CONFIGURATION_TEMP_DIR)/wireguard-go-bridge
 
 CFLAGS_PREFIX := $(if $(DEPLOYMENT_TARGET_CLANG_FLAG_NAME),-$(DEPLOYMENT_TARGET_CLANG_FLAG_NAME)=$($(DEPLOYMENT_TARGET_CLANG_ENV_NAME)),) -isysroot $(SDKROOT) -arch
@@ -21,7 +24,7 @@ GOARCH_x86_64 := amd64
 GOOS_macosx := darwin
 GOOS_iphoneos := ios
 
-build: $(DESTDIR)/libwg-go.a
+build: $(DESTDIR)/libwg-go.a $(IPHONE_DESTDIR)/libwg-go.a
 version-header: $(DESTDIR)/wireguard-go-version.h
 
 REAL_GOROOT := $(shell go env GOROOT 2>/dev/null)
@@ -51,6 +54,10 @@ $(DESTDIR)/wireguard-go-version.h: go.mod $(GOROOT)/.prepared
 $(DESTDIR)/libwg-go.a: $(foreach ARCH,$(ARCHS),$(BUILDDIR)/libwg-go-$(ARCH).a)
 	@mkdir -vp "$(DESTDIR)"
 	$(LIPO) -create -output "$@" $^
+
+$(IPHONE_DESTDIR)/libwg-go.a: $(foreach ARCH,$(IPHONE_ARCHS),$(BUILDDIR)/libwg-go-$(ARCH).a)
+	@mkdir -vp "$(IPHONE_DESTDIR)"
+	cp $^ "$@"
 
 clean:
 	rm -rf "$(BUILDDIR)" "$(DESTDIR)/libwg-go.a" "$(DESTDIR)/wireguard-go-version.h"
